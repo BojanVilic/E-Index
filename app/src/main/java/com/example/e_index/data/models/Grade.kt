@@ -1,4 +1,4 @@
-package com.example.e_index.data
+package com.example.e_index.data.models
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
