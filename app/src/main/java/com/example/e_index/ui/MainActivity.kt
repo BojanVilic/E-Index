@@ -1,4 +1,4 @@
-package com.example.e_index
+package com.example.e_index.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
