@@ -1,7 +1,6 @@
 package com.example.e_index.di
 
-import com.example.e_index.data.dao.AdminDao
-import com.example.e_index.data.dao.StudentDao
+import com.example.e_index.ui.login.LoginRepository
 import com.example.e_index.ui.login.LoginViewModel
 import dagger.Module
 import dagger.Provides
@@ -14,12 +13,10 @@ object ViewModelModule {
 
     @Provides
     fun getLoginViewModel(
-        adminDao: AdminDao,
-        studentDao: StudentDao
+        loginRepository: LoginRepository
     ): LoginViewModel {
         return LoginViewModel(
-            adminDao,
-            studentDao
+            loginRepository
         )
     }
 

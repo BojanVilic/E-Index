@@ -1,26 +1,43 @@
 package com.example.e_index.ui.login
 
+import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.e_index.data.dao.AdminDao
-import com.example.e_index.data.dao.StudentDao
+import androidx.lifecycle.viewModelScope
+import com.example.e_index.data.UserRole
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    adminDao: AdminDao,
-    studentDao: StudentDao
+    private val loginRepository: LoginRepository
 ): ViewModel() {
 
-    fun masterAdminCheck() {
+    private val _loginState = mutableStateOf(LoginViewState())
+    val loginState: LoginViewState
+        get() = _loginState.value
 
+    suspend fun processIntent(intent: LoginIntent) {
+        when (intent) {
+            is LoginIntent.LoginClicked -> loginRepository.logIn(
+                username = loginState.username.value,
+                password = loginState.password.value,
+                role = loginState.role.value
+            )
+            is LoginIntent.UsernameChanged -> _loginState.value.username.value = intent.newUsername
+            is LoginIntent.PasswordChanged -> _loginState.value.password.value = intent.newPassword
+            is LoginIntent.RoleChanged -> _loginState.value.role.value = intent.newRole
+        }
     }
 
-    fun studentLogin() {
-
-    }
-
-    fun adminLogin() {
-
+    init {
+        viewModelScope.launch {
+            loginRepository.loginStatus.collect {
+                if (it == UserRole.ADMIN) {
+                    Log.d("LoginViewModel", "Admin log in successful")
+                }
+            }
+        }
     }
 }
