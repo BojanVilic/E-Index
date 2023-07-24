@@ -5,7 +5,6 @@ import androidx.room.Room
 import com.example.e_index.data.AppDatabase
 import com.example.e_index.data.dao.AdminDao
 import com.example.e_index.data.dao.CategoryDao
-import com.example.e_index.data.dao.GradeDao
 import com.example.e_index.data.dao.StudentDao
 import com.example.e_index.data.dao.SubjectDao
 import dagger.Module
@@ -29,12 +28,6 @@ object ApplicationModule {
     @Provides
     fun getCategoryDao(appDatabase: AppDatabase): CategoryDao {
         return appDatabase.categoryDao()
-    }
-
-    @Singleton
-    @Provides
-    fun getGradeDao(appDatabase: AppDatabase): GradeDao {
-        return appDatabase.gradeDao()
     }
 
     @Singleton

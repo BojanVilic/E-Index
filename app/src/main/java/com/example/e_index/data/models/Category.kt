@@ -1,15 +1,15 @@
 package com.example.e_index.data.models
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
-@Entity(tableName = "categories")
+@Entity(
+    tableName = "categories",
+    primaryKeys = ["subjectId", "schoolYearId"]
+)
 data class Category(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
     val subjectId: Long,
+    val schoolYearId: Long,
     val name: String,
     val maxPoints: Int,
-    val minPoints: Int,
-    val schoolYear: String
+    val minPoints: Int
 )

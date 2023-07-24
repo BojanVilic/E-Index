@@ -2,10 +2,10 @@ package com.example.e_index.data.models
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "grades",
+    tableName = "student_subject",
+    primaryKeys = ["studentId", "subjectId", "schoolYearId"],
     foreignKeys = [
         ForeignKey(
             entity = Student::class,
@@ -18,14 +18,17 @@ import androidx.room.PrimaryKey
             parentColumns = ["id"],
             childColumns = ["subjectId"],
             onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+            entity = SchoolYear::class,
+            parentColumns = ["id"],
+            childColumns = ["schoolYearId"],
+            onDelete = ForeignKey.CASCADE
         )
     ]
 )
-data class Grade(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+data class StudentSubject(
     val studentId: Long,
     val subjectId: Long,
-    val points: Int,
-    val schoolYear: String
+    val schoolYearId: Long
 )
