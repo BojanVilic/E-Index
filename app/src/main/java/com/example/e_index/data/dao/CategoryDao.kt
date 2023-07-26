@@ -6,8 +6,7 @@ import com.example.e_index.data.models.Category
 
 @Dao
 interface CategoryDao {
-    // Requirement 11
+
     @Insert
     suspend fun insertCategories(categories: List<Category>)
-
 }

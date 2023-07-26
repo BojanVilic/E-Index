@@ -3,9 +3,19 @@ package com.example.e_index.ui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import com.example.e_index.ui.login.LoginScreen
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.example.e_index.navigation.TopLevelDestinations
+import com.example.e_index.navigation.components.TabRow
+import com.example.e_index.navigation.loginScreen
+import com.example.e_index.navigation.searchScreen
 import com.example.e_index.ui.theme.EIndexTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,10 +27,43 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             EIndexTheme {
-                Scaffold { paddingValues ->
-                    LoginScreen(paddingValues)
+
+                val allScreens = TopLevelDestinations.values().toList()
+                val navController = rememberNavController()
+                val backstackEntry = navController.currentBackStackEntryAsState()
+                val currentScreen: TopLevelDestinations? = TopLevelDestinations.fromRoute(backstackEntry.value?.destination?.route)
+
+                Scaffold(
+                    bottomBar = {
+                        if (currentScreen != null) {
+                            TabRow(
+                                allScreens = allScreens,
+                                onTabSelected = { screen ->
+                                    navController.navigate(screen.route)
+                                },
+                                currentScreen = currentScreen
+                            )
+                        }
+                    }
+                ) { paddingValues ->
+                    AppNavHost(navController, modifier = Modifier.padding(paddingValues))
                 }
             }
         }
+    }
+}
+
+@Composable
+fun AppNavHost(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    NavHost(
+        navController = navController,
+        startDestination = "login_route",
+        modifier = modifier
+    ) {
+        loginScreen(navController)
+        searchScreen(navController)
     }
 }

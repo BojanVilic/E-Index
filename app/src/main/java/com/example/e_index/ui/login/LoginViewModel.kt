@@ -35,6 +35,7 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             loginRepository.loginStatus.collect {
                 if (it == UserRole.ADMIN) {
+                    _loginState.value.loginSuccess.value = true
                     Log.d("LoginViewModel", "Admin log in successful")
                 }
             }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">E-Index</string>
+    <string name="menu_add">Dodavanje informacija</string>
+    <string name="menu_search">Pretraga</string>
 </resources>

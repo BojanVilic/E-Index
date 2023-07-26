@@ -9,5 +9,6 @@ data class LoginViewState(
     val password: MutableState<String> = mutableStateOf(""),
     val role: MutableState<UserRole> = mutableStateOf(UserRole.ADMIN),
     val isLoading: MutableState<Boolean> = mutableStateOf(false),
-    val errorMessage: MutableState<String> = mutableStateOf("")
+    val errorMessage: MutableState<String> = mutableStateOf(""),
+    val loginSuccess: MutableState<Boolean> = mutableStateOf(false)
 )

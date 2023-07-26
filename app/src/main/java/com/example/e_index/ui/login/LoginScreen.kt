@@ -5,7 +5,6 @@ package com.example.e_index.ui.login
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -19,6 +18,7 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,15 +40,20 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(
-    paddingValues: PaddingValues,
-    loginViewModel: LoginViewModel = hiltViewModel()
+    loginViewModel: LoginViewModel = hiltViewModel(),
+    onLoginSuccess: () -> Unit
 ) {
 
     val loginState = loginViewModel.loginState
     val coroutineScope = rememberCoroutineScope()
 
+    LaunchedEffect(loginState.loginSuccess.value) {
+        if (loginState.loginSuccess.value) {
+            onLoginSuccess()
+        }
+    }
+
     LoginContent(
-        paddingValues = paddingValues,
         viewState = loginState,
         onUserIntent = { loginIntent ->
             coroutineScope.launch {
@@ -60,7 +65,6 @@ fun LoginScreen(
 
 @Composable
 fun LoginContent(
-    paddingValues: PaddingValues,
     viewState: LoginViewState,
     onUserIntent: (LoginIntent) -> Unit
 ) {
@@ -69,8 +73,7 @@ fun LoginContent(
 
     Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(paddingValues),
+            .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -152,7 +155,6 @@ fun LoginContent(
 fun LoginContentPreview() {
     EIndexTheme {
         LoginContent(
-            paddingValues = PaddingValues(),
             viewState = LoginViewState(),
             onUserIntent = {}
         )
