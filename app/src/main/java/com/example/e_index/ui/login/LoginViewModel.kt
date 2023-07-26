@@ -1,11 +1,14 @@
 package com.example.e_index.ui.login
 
 import android.util.Log
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.e_index.data.UserRole
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,20 +17,20 @@ class LoginViewModel @Inject constructor(
     private val loginRepository: LoginRepository
 ): ViewModel() {
 
-    private val _loginState = mutableStateOf(LoginViewState())
-    val loginState: LoginViewState
-        get() = _loginState.value
+    private val _loginState = MutableStateFlow(LoginViewState())
+    val loginState: StateFlow<LoginViewState>
+        get() = _loginState.asStateFlow()
 
     suspend fun processIntent(intent: LoginIntent) {
         when (intent) {
             is LoginIntent.LoginClicked -> loginRepository.logIn(
-                username = loginState.username.value,
-                password = loginState.password.value,
-                role = loginState.role.value
+                username = _loginState.value.username,
+                password = _loginState.value.password,
+                role = _loginState.value.role
             )
-            is LoginIntent.UsernameChanged -> _loginState.value.username.value = intent.newUsername
-            is LoginIntent.PasswordChanged -> _loginState.value.password.value = intent.newPassword
-            is LoginIntent.RoleChanged -> _loginState.value.role.value = intent.newRole
+            is LoginIntent.UsernameChanged -> _loginState.update { it.copy(username = intent.newUsername) }
+            is LoginIntent.PasswordChanged -> _loginState.update { it.copy(password = intent.newPassword) }
+            is LoginIntent.RoleChanged -> _loginState.update { it.copy(role = intent.newRole) }
         }
     }
 
@@ -35,7 +38,7 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             loginRepository.loginStatus.collect {
                 if (it == UserRole.ADMIN) {
-                    _loginState.value.loginSuccess.value = true
+                    _loginState.update { it.copy(loginSuccess = true) }
                     Log.d("LoginViewModel", "Admin log in successful")
                 }
             }

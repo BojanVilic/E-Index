@@ -19,6 +19,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -44,11 +45,11 @@ fun LoginScreen(
     onLoginSuccess: () -> Unit
 ) {
 
-    val loginState = loginViewModel.loginState
+    val loginState by loginViewModel.loginState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
-    LaunchedEffect(loginState.loginSuccess.value) {
-        if (loginState.loginSuccess.value) {
+    LaunchedEffect(loginState.loginSuccess) {
+        if (loginState.loginSuccess) {
             onLoginSuccess()
         }
     }
@@ -82,7 +83,7 @@ fun LoginContent(
         )
 
         OutlinedTextField(
-            value = viewState.username.value,
+            value = viewState.username,
             onValueChange = {
                 onUserIntent(LoginIntent.UsernameChanged(it))
             },
@@ -90,7 +91,7 @@ fun LoginContent(
         )
 
         OutlinedTextField(
-            value = viewState.password.value,
+            value = viewState.password,
             onValueChange = {
                 onUserIntent(LoginIntent.PasswordChanged(it))
             },
@@ -117,7 +118,7 @@ fun LoginContent(
             OutlinedTextField(
                 modifier = Modifier.menuAnchor(),
                 readOnly = true,
-                value = viewState.role.value.value,
+                value = viewState.role.value,
                 onValueChange = {},
                 label = { Text("Tip korisnika") },
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) }
