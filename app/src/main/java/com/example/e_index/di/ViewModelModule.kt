@@ -1,5 +1,7 @@
 package com.example.e_index.di
 
+import com.example.e_index.ui.add.AddRepository
+import com.example.e_index.ui.add.AddViewModel
 import com.example.e_index.ui.login.LoginRepository
 import com.example.e_index.ui.login.LoginViewModel
 import dagger.Module
@@ -17,6 +19,15 @@ object ViewModelModule {
     ): LoginViewModel {
         return LoginViewModel(
             loginRepository
+        )
+    }
+
+    @Provides
+    fun getAddViewModel(
+        addRepository: AddRepository
+    ): AddViewModel {
+        return AddViewModel(
+            addRepository
         )
     }
 

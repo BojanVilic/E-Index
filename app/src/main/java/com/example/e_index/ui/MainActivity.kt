@@ -47,7 +47,10 @@ class MainActivity : ComponentActivity() {
                         }
                     }
                 ) { paddingValues ->
-                    AppNavHost(navController, modifier = Modifier.padding(paddingValues))
+                    AppNavHost(
+                        navController = navController,
+                        modifier = Modifier.padding(paddingValues)
+                    )
                 }
             }
         }

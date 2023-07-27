@@ -2,4 +2,9 @@
     <string name="app_name">E-Index</string>
     <string name="menu_add">Unos</string>
     <string name="menu_search">Pretraga</string>
+    <string name="add_school_year">Dodavanje školske godine</string>
+    <string name="add_student">Dodavanje studenta</string>
+    <string name="add_subject">Dodavanje predmeta</string>
+    <string name="add_label">Unesi u data bazu</string>
+    <string name="add_school_year_success">Školska godina uspešno dodata!</string>
 </resources>

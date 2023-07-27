@@ -8,6 +8,7 @@ import com.example.e_index.data.dao.StudentDao
 import com.example.e_index.data.dao.SubjectDao
 import com.example.e_index.data.models.Admin
 import com.example.e_index.data.models.Category
+import com.example.e_index.data.models.SchoolYear
 import com.example.e_index.data.models.Student
 import com.example.e_index.data.models.Subject
 
@@ -16,7 +17,8 @@ import com.example.e_index.data.models.Subject
         Admin::class,
         Category::class,
         Student::class,
-        Subject::class
+        Subject::class,
+        SchoolYear::class
     ],
     version = 1
 )
