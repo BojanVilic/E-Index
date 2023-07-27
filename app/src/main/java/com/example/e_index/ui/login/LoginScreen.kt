@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.e_index.data.UserRole
-import com.example.e_index.data.stringToUserRole
 import com.example.e_index.ui.theme.EIndexTheme
 import kotlinx.coroutines.launch
 
@@ -136,7 +135,7 @@ fun LoginContent(
                     DropdownMenuItem(
                         text = { Text(selectionOption) },
                         onClick = {
-                            onUserIntent(LoginIntent.RoleChanged(stringToUserRole(selectionOption)))
+                            onUserIntent(LoginIntent.RoleChanged(UserRole.stringToUserRole(selectionOption)))
                             expanded = false
                         },
                         contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
