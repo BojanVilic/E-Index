@@ -87,7 +87,12 @@ fun LoginContent(
             onValueChange = {
                 onUserIntent(LoginIntent.UsernameChanged(it))
             },
-            label = { Text(text = "Korisnicko ime") }
+            label = { Text(text = "Korisnicko ime") },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                autoCorrect = true,
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Next
+            )
         )
 
         OutlinedTextField(

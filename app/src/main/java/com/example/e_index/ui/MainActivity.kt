@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.e_index.navigation.TopLevelDestinations
+import com.example.e_index.navigation.addScreen
 import com.example.e_index.navigation.components.TabRow
 import com.example.e_index.navigation.loginScreen
 import com.example.e_index.navigation.searchScreen
@@ -65,5 +66,6 @@ fun AppNavHost(
     ) {
         loginScreen(navController)
         searchScreen(navController)
+        addScreen(navController)
     }
 }
