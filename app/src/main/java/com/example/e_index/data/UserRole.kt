@@ -7,9 +7,9 @@ enum class UserRole(val value: String) {
     companion object {
         fun stringToUserRole(input: String): UserRole {
             return when (input.lowercase()) {
-                "admin" -> UserRole.ADMIN
-                "student" -> UserRole.STUDENT
-                else -> UserRole.STUDENT
+                "admin" -> ADMIN
+                "student" -> STUDENT
+                else -> STUDENT
             }
         }
     }

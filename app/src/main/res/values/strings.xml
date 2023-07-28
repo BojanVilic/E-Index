@@ -7,4 +7,10 @@
     <string name="add_subject">Dodavanje predmeta</string>
     <string name="add_label">Unesi u data bazu</string>
     <string name="add_school_year_success">Školska godina uspešno dodata!</string>
+    <string name="label_name">Ime</string>
+    <string name="label_surname">Prezime</string>
+    <string name="label_index_number">Broj indeksa</string>
+    <string name="label_jmbg">JMBG</string>
+    <string name="label_username">Korisničko ime</string>
+    <string name="label_password">Lozinka</string>
 </resources>

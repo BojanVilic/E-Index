@@ -48,7 +48,7 @@ fun AddContent(
             onRowClicked = onAddSchoolYearClicked
         )
         AddDataOption(
-            title = R.string.add_subject,
+            title = R.string.add_student,
             onRowClicked = onAddStudentClicked
         )
         AddDataOption(
