@@ -10,6 +10,8 @@ import com.example.e_index.data.models.Admin
 import com.example.e_index.data.models.Category
 import com.example.e_index.data.models.SchoolYear
 import com.example.e_index.data.models.Student
+import com.example.e_index.data.models.StudentCategory
+import com.example.e_index.data.models.StudentSubject
 import com.example.e_index.data.models.Subject
 
 @Database(
@@ -18,7 +20,9 @@ import com.example.e_index.data.models.Subject
         Category::class,
         Student::class,
         Subject::class,
-        SchoolYear::class
+        SchoolYear::class,
+        StudentCategory::class,
+        StudentSubject::class
     ],
     version = 1
 )

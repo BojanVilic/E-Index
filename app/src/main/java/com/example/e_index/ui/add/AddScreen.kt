@@ -23,12 +23,14 @@ import com.example.e_index.ui.theme.EIndexTheme
 fun AddScreen(
     onAddSchoolYearClicked: () -> Unit,
     onAddStudentClicked: () -> Unit,
-    onAddSubjectClicked: () -> Unit
+    onAddSubjectClicked: () -> Unit,
+    onAddAdminClicked: () -> Unit
 ) {
     AddContent(
         onAddSchoolYearClicked = onAddSchoolYearClicked,
         onAddStudentClicked = onAddStudentClicked,
-        onAddSubjectClicked = onAddSubjectClicked
+        onAddSubjectClicked = onAddSubjectClicked,
+        onAddAdminClicked = onAddAdminClicked
     )
 }
 
@@ -36,7 +38,8 @@ fun AddScreen(
 fun AddContent(
     onAddSchoolYearClicked: () -> Unit,
     onAddStudentClicked: () -> Unit,
-    onAddSubjectClicked: () -> Unit
+    onAddSubjectClicked: () -> Unit,
+    onAddAdminClicked: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -54,6 +57,11 @@ fun AddContent(
         AddDataOption(
             title = R.string.add_subject,
             onRowClicked = onAddSubjectClicked
+        )
+
+        AddDataOption(
+            title = R.string.add_admin,
+            onRowClicked = onAddAdminClicked
         )
     }
 }
@@ -90,7 +98,8 @@ fun AddContentPreview() {
         AddContent(
             onAddSchoolYearClicked = {},
             onAddStudentClicked = {},
-            onAddSubjectClicked = {}
+            onAddSubjectClicked = {},
+            onAddAdminClicked = {}
         )
     }
 }

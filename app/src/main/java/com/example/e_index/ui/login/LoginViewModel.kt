@@ -1,9 +1,7 @@
 package com.example.e_index.ui.login
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.e_index.data.UserRole
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,10 +34,14 @@ class LoginViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            loginRepository.loginStatus.collect {
-                if (it == UserRole.ADMIN) {
+            loginRepository.loginStatus.collect { result ->
+
+                result.onSuccess {
                     _loginState.update { it.copy(loginSuccess = true) }
-                    Log.d("LoginViewModel", "Admin log in successful")
+                }
+
+                result.onFailure { throwable ->
+                    _loginState.update { it.copy(errorMessage = throwable.message?: "") }
                 }
             }
         }

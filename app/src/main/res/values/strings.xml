@@ -4,9 +4,11 @@
     <string name="menu_search">Pretraga</string>
     <string name="add_school_year">Dodavanje školske godine</string>
     <string name="add_student">Dodavanje studenta</string>
+    <string name="add_admin">Dodavanje admina</string>
     <string name="add_subject">Dodavanje predmeta</string>
     <string name="add_label">Unesi u data bazu</string>
     <string name="add_school_year_success">Školska godina uspešno dodata!</string>
+    <string name="add_admin_success">Admin uspešno dodat!</string>
     <string name="label_name">Ime</string>
     <string name="label_surname">Prezime</string>
     <string name="label_index_number">Broj indeksa</string>

@@ -1,6 +1,6 @@
 package com.example.e_index.util
 
-object YearFormatValidator {
+object TextFieldValidator {
     private val fullPattern = Regex("^[0-9]{4}/[0-9]{4}$")
 
     fun isValidFormat(input: String): Boolean {

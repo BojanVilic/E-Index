@@ -28,7 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.e_index.R
 import com.example.e_index.data.models.SchoolYear
 import com.example.e_index.ui.theme.EIndexTheme
-import com.example.e_index.util.YearFormatValidator
+import com.example.e_index.util.TextFieldValidator
 import kotlinx.coroutines.launch
 
 
@@ -116,8 +116,8 @@ fun YearFormatTextField(
             .padding(top = 16.dp),
         value = text,
         onValueChange = { input ->
-            isValidFormat = YearFormatValidator.isValidFormat(input)
-            areYearsOneYearApart = YearFormatValidator.areYearsOneYearApart(input)
+            isValidFormat = TextFieldValidator.isValidFormat(input)
+            areYearsOneYearApart = TextFieldValidator.areYearsOneYearApart(input)
 
             onTextChanged(input, isValidFormat && areYearsOneYearApart)
         },

@@ -28,12 +28,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.e_index.R
 import com.example.e_index.data.UserRole
 import com.example.e_index.ui.theme.EIndexTheme
 import kotlinx.coroutines.launch
@@ -86,12 +88,16 @@ fun LoginContent(
             onValueChange = {
                 onUserIntent(LoginIntent.UsernameChanged(it))
             },
-            label = { Text(text = "Korisnicko ime") },
+            label = { Text(stringResource(id = R.string.label_username)) },
             keyboardOptions = KeyboardOptions.Default.copy(
                 autoCorrect = true,
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Next
-            )
+            ),
+            isError = viewState.errorMessage.isNotBlank(),
+            supportingText = {
+                Text(text = viewState.errorMessage)
+            }
         )
 
         OutlinedTextField(
@@ -99,7 +105,7 @@ fun LoginContent(
             onValueChange = {
                 onUserIntent(LoginIntent.PasswordChanged(it))
             },
-            label = { Text(text = "Lozinka") },
+            label = { Text(stringResource(id = R.string.label_password)) },
             keyboardOptions = KeyboardOptions.Default.copy(
                 autoCorrect = true,
                 keyboardType = KeyboardType.Password,
@@ -109,7 +115,11 @@ fun LoginContent(
                 onDone = {
                     focusManager.clearFocus()
                 }
-            )
+            ),
+            isError = viewState.errorMessage.isNotBlank(),
+            supportingText = {
+                Text(text = viewState.errorMessage)
+            }
         )
 
         val options = UserRole.values().map { it.value }

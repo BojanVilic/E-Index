@@ -1,4 +1,4 @@
-package com.example.e_index.ui.add
+package com.example.e_index.ui.add.uimodels
 
 data class StudentUi(
     var name: String = "",
