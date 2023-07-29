@@ -26,9 +26,9 @@ import androidx.room.ForeignKey
     ]
 )
 data class StudentCategory(
-    val categoryId: Long,
-    val studentId: Long,
-    val schoolYearId: Long,
-    val points: Int,
-    val passed: Boolean
+    val categoryId: Long = 0,
+    val studentId: Long = 0,
+    val schoolYearId: Long = 0,
+    val points: Int = 0,
+    val passed: Boolean = false
 )

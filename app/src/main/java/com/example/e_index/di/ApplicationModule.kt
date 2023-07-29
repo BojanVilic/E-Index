@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.example.e_index.data.AppDatabase
 import com.example.e_index.data.dao.AdminDao
-import com.example.e_index.data.dao.CategoryDao
 import com.example.e_index.data.dao.SchoolYearDao
 import com.example.e_index.data.dao.StudentDao
 import com.example.e_index.data.dao.SubjectDao
@@ -23,12 +22,6 @@ object ApplicationModule {
     @Provides
     fun getAdminDao(appDatabase: AppDatabase): AdminDao {
         return appDatabase.adminDao()
-    }
-
-    @Singleton
-    @Provides
-    fun getCategoryDao(appDatabase: AppDatabase): CategoryDao {
-        return appDatabase.categoryDao()
     }
 
     @Singleton

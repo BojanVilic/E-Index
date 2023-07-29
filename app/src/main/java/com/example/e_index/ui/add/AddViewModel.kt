@@ -8,6 +8,7 @@ import com.example.e_index.ui.add.subject.AddSubjectViewState
 import com.example.e_index.ui.add.uimodels.AdminUi
 import com.example.e_index.ui.add.uimodels.asEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,13 +21,9 @@ class AddViewModel @Inject constructor(
     private val addRepository: AddRepository
 ): ViewModel() {
 
-    private val _schoolYears = MutableStateFlow<List<SchoolYear>>(emptyList())
-    val schoolYears: StateFlow<List<SchoolYear>> get() = _schoolYears.asStateFlow()
-
     private val _addSubjectState = MutableStateFlow(AddSubjectViewState())
     val addSubjectState: StateFlow<AddSubjectViewState>
         get() = _addSubjectState.asStateFlow()
-
 
     suspend fun processIntent(intent: AddSubjectIntent) {
         when (intent) {
@@ -44,8 +41,8 @@ class AddViewModel @Inject constructor(
     }
 
     init {
-        viewModelScope.launch {
-            _schoolYears.value = addRepository.getAllSchoolYears()
+        viewModelScope.launch(Dispatchers.IO) {
+            _addSubjectState.update { it.copy(schoolYears = addRepository.getAllSchoolYears()) }
         }
     }
 

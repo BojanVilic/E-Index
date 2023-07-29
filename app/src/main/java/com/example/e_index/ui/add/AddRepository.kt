@@ -7,6 +7,9 @@ import com.example.e_index.data.dao.SubjectDao
 import com.example.e_index.data.models.Admin
 import com.example.e_index.data.models.Category
 import com.example.e_index.data.models.SchoolYear
+import com.example.e_index.data.models.Student
+import com.example.e_index.data.models.StudentCategory
+import com.example.e_index.data.models.StudentSubject
 import com.example.e_index.data.models.Subject
 import javax.inject.Inject
 
@@ -33,7 +36,8 @@ class AddRepository @Inject constructor(
         if (selectedSchoolYearId != null) {
             subjectDao.insertSubjectWithCategories(
                 subject = Subject(
-                    name = subjectName
+                    name = subjectName,
+                    schoolYearId = selectedSchoolYearId
                 ),
                 categories = categories,
                 schoolYearId = selectedSchoolYearId
@@ -43,5 +47,25 @@ class AddRepository @Inject constructor(
 
     suspend fun getAllSchoolYears(): List<SchoolYear> {
         return schoolYearDao.getAllSchoolYears()
+    }
+
+    suspend fun getAllSubjects(schoolYearId: Long): List<Subject> {
+        return subjectDao.getAllSubjectsForYear(schoolYearId)
+    }
+
+    suspend fun getCategoriesForSubject(subjectId: Long, schoolYearId: Long): List<Category> {
+        return subjectDao.getCategoriesForSubject(subjectId, schoolYearId)
+    }
+
+    suspend fun insertStudentWithRelevantData(
+        student: Student,
+        studentSubjectList: List<StudentSubject>,
+        studentCategoryList: List<StudentCategory>
+    ) {
+        studentDao.insertStudentWithRelatedData(
+            student = student,
+            studentSubjects = studentSubjectList,
+            studentCategories = studentCategoryList
+        )
     }
 }

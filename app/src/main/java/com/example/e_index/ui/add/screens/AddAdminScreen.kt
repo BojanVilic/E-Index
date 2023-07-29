@@ -102,7 +102,7 @@ fun AddAdminContent(
             enabled = fieldsValid
         ) {
             Text(
-                text = stringResource(id = R.string.add_label),
+                text = stringResource(id = R.string.label_add_to_database),
                 fontSize = 18.sp
             )
         }

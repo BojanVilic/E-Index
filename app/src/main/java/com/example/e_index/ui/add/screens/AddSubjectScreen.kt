@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,7 +37,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.e_index.R
-import com.example.e_index.data.models.SchoolYear
 import com.example.e_index.ui.add.AddViewModel
 import com.example.e_index.ui.add.subject.AddSubjectIntent
 import com.example.e_index.ui.add.subject.AddSubjectViewState
@@ -51,13 +51,10 @@ fun AddSubjectScreen(
     addViewModel: AddViewModel = hiltViewModel()
 ) {
 
-    val schoolYearList by addViewModel.schoolYears.collectAsState()
     val addSubjectState by addViewModel.addSubjectState.collectAsState()
-
     val coroutineScope = rememberCoroutineScope()
 
     AddSubjectContent(
-        schoolYearList = schoolYearList,
         addSubjectState = addSubjectState,
         onUserIntent = { userIntent ->
             coroutineScope.launch {
@@ -69,12 +66,11 @@ fun AddSubjectScreen(
 
 @Composable
 fun AddSubjectContent(
-    schoolYearList: List<SchoolYear>,
     addSubjectState: AddSubjectViewState,
     onUserIntent: (AddSubjectIntent) -> Unit
 ) {
 
-    var selectedSchoolYear by remember { mutableStateOf(schoolYearList.firstOrNull()?.name?: "") }
+    var selectedSchoolYear by remember { mutableStateOf(addSubjectState.schoolYears.firstOrNull()?.name?: "") }
     val currentCategory by remember { mutableStateOf(CategoryUi()) }
 
     Column(
@@ -89,11 +85,11 @@ fun AddSubjectContent(
 
         DropdownSelectionMenu(
             modifier = Modifier.fillMaxWidth(),
-            options = schoolYearList.map { it.name },
+            options = addSubjectState.schoolYears.map { it.name },
             selectedValue = selectedSchoolYear,
             onValueChange = { newSchoolYear ->
                 selectedSchoolYear = newSchoolYear
-                onUserIntent(AddSubjectIntent.SelectSchoolYear(schoolYearList.find { it.name == newSchoolYear }))
+                onUserIntent(AddSubjectIntent.SelectSchoolYear(addSubjectState.schoolYears.find { it.name == newSchoolYear }))
             },
             label = stringResource(id = R.string.label_school_year)
         )
@@ -207,7 +203,7 @@ fun AddSubjectContent(
             }
         ) {
             Text(
-                text = stringResource(id = R.string.add_label),
+                text = stringResource(id = R.string.label_add_to_database),
                 fontSize = 18.sp
             )
         }
@@ -216,16 +212,19 @@ fun AddSubjectContent(
 
 @Composable
 fun CategoryChip(
-    text: String
+    text: String,
+    fontWeight: FontWeight = FontWeight.Normal,
+    borderWidth: Int = 1
 ) {
     Box(
         modifier = Modifier
             .padding(horizontal = 4.dp, vertical = 4.dp)
-            .border(width = 1.dp, color = Color.Gray, shape = RoundedCornerShape(8.dp))
+            .border(width = borderWidth.dp, color = Color.Gray, shape = RoundedCornerShape(8.dp))
     ) {
         Text(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-            text = text
+            text = text,
+            fontWeight = fontWeight
         )
     }
 }
@@ -236,7 +235,6 @@ fun CategoryChip(
 fun AddSubjectContentPreview() {
     EIndexTheme {
         AddSubjectContent(
-            schoolYearList = emptyList(),
             addSubjectState = AddSubjectViewState(),
             onUserIntent = {}
         )

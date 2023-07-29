@@ -28,7 +28,7 @@ import androidx.room.ForeignKey
 )
 data class StudentSubject(
     val subjectId: Long,
-    val studentId: Long,
+    val studentId: Long = 0,
     val schoolYearId: Long,
     val mark: Int,
     val passed: Boolean,

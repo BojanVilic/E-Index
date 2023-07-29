@@ -3,6 +3,7 @@ package com.example.e_index.data.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import androidx.room.Transaction
 import com.example.e_index.data.models.Category
 import com.example.e_index.data.models.Subject
@@ -27,4 +28,9 @@ interface SubjectDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCategories(categories: List<Category>)
 
+    @Query("SELECT * FROM subjects WHERE schoolYearId = :schoolYearId")
+    suspend fun getAllSubjectsForYear(schoolYearId: Long): List<Subject>
+
+    @Query("SELECT * FROM categories WHERE subjectId = :subjectId AND schoolYearId = :schoolYearId")
+    suspend fun getCategoriesForSubject(subjectId: Long, schoolYearId: Long): List<Category>
 }
