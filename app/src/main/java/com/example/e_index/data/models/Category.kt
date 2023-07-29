@@ -20,8 +20,8 @@ import androidx.room.PrimaryKey
     ]
 )
 data class Category(
-    @PrimaryKey
-    val id: Long,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
     val subjectId: Long,
     val schoolYearId: Long,
     val name: String,

@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.e_index.data.dao.AdminDao
 import com.example.e_index.data.dao.CategoryDao
+import com.example.e_index.data.dao.SchoolYearDao
 import com.example.e_index.data.dao.StudentDao
 import com.example.e_index.data.dao.SubjectDao
 import com.example.e_index.data.models.Admin
@@ -32,5 +33,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun categoryDao(): CategoryDao
     abstract fun studentDao(): StudentDao
     abstract fun subjectDao(): SubjectDao
+    abstract fun schoolYearDao(): SchoolYearDao
 
 }

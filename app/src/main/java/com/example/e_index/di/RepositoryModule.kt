@@ -1,7 +1,9 @@
 package com.example.e_index.di
 
 import com.example.e_index.data.dao.AdminDao
+import com.example.e_index.data.dao.SchoolYearDao
 import com.example.e_index.data.dao.StudentDao
+import com.example.e_index.data.dao.SubjectDao
 import com.example.e_index.ui.add.AddRepository
 import com.example.e_index.ui.login.LoginRepository
 import dagger.Module
@@ -30,11 +32,15 @@ object RepositoryModule {
     @Singleton
     fun getAddRepository(
         adminDao: AdminDao,
-        studentDao: StudentDao
+        studentDao: StudentDao,
+        subjectDao: SubjectDao,
+        schoolYearDao: SchoolYearDao
     ): AddRepository {
         return AddRepository(
             adminDao,
-            studentDao
+            studentDao,
+            subjectDao,
+            schoolYearDao
         )
     }
 }

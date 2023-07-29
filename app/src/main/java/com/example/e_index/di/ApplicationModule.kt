@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.example.e_index.data.AppDatabase
 import com.example.e_index.data.dao.AdminDao
 import com.example.e_index.data.dao.CategoryDao
+import com.example.e_index.data.dao.SchoolYearDao
 import com.example.e_index.data.dao.StudentDao
 import com.example.e_index.data.dao.SubjectDao
 import dagger.Module
@@ -40,6 +41,12 @@ object ApplicationModule {
     @Provides
     fun getSubjectDao(appDatabase: AppDatabase): SubjectDao {
         return appDatabase.subjectDao()
+    }
+
+    @Singleton
+    @Provides
+    fun geSchoolYearDao(appDatabase: AppDatabase): SchoolYearDao {
+        return appDatabase.schoolYearDao()
     }
 
     @Provides

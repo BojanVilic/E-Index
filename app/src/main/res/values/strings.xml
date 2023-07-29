@@ -15,4 +15,11 @@
     <string name="label_jmbg">JMBG</string>
     <string name="label_username">Korisničko ime</string>
     <string name="label_password">Lozinka</string>
+    <string name="label_school_year">Školska godina</string>
+    <string name="label_subject_name">Naziv predmeta</string>
+    <string name="label_category_name">Naziv kategorije</string>
+    <string name="label_active_categories">Aktivne kategorije</string>
+    <string name="label_min">Min</string>
+    <string name="label_max">Max</string>
+    <string name="add_category">Dodaj kategoriju</string>
 </resources>

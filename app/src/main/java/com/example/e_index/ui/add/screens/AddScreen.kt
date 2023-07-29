@@ -1,4 +1,4 @@
-package com.example.e_index.ui.add
+package com.example.e_index.ui.add.screens
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
