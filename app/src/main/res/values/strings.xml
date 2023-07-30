@@ -11,6 +11,7 @@
     <string name="add_admin_success">Admin uspešno dodat!</string>
     <string name="label_name">Ime</string>
     <string name="label_surname">Prezime</string>
+    <string name="label_student">Student</string>
     <string name="label_index_number">Broj indeksa</string>
     <string name="label_jmbg">JMBG</string>
     <string name="label_username">Korisničko ime</string>
@@ -27,4 +28,6 @@
     <string name="add_subject_to_student">Dodeljivanje predmeta studentu</string>
     <string name="add_points_for_categories">Dodeljivanje poena za kategorije</string>
     <string name="add_subject_details">Dodeli predmet</string>
+    <string name="delete_student">Brisanje studenta</string>
+    <string name="label_delete_from_database">Obriši iz data baze</string>
 </resources>

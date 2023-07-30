@@ -37,8 +37,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.e_index.R
-import com.example.e_index.ui.add.AddViewModel
 import com.example.e_index.ui.add.subject.AddSubjectIntent
+import com.example.e_index.ui.add.subject.AddSubjectViewModel
 import com.example.e_index.ui.add.subject.AddSubjectViewState
 import com.example.e_index.ui.add.uimodels.CategoryUi
 import com.example.e_index.ui.add.uimodels.asEntity
@@ -48,7 +48,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AddSubjectScreen(
-    addViewModel: AddViewModel = hiltViewModel()
+    addViewModel: AddSubjectViewModel = hiltViewModel()
 ) {
 
     val addSubjectState by addViewModel.addSubjectState.collectAsState()

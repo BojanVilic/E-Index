@@ -1,6 +1,7 @@
 package com.example.e_index.data.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -8,6 +9,7 @@ import androidx.room.Transaction
 import com.example.e_index.data.models.Student
 import com.example.e_index.data.models.StudentCategory
 import com.example.e_index.data.models.StudentSubject
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface StudentDao {
@@ -38,5 +40,11 @@ interface StudentDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertStudentSubjects(studentSubjects: List<StudentSubject>)
+
+    @Delete
+    suspend fun deleteStudent(student: Student)
+
+    @Query("SELECT * FROM students")
+    fun getAllStudents(): Flow<List<Student>>
 }
 

@@ -14,6 +14,7 @@ import com.example.e_index.ui.add.screens.AddSchoolYearScreen
 import com.example.e_index.ui.add.screens.AddScreen
 import com.example.e_index.ui.add.screens.AddStudentScreen
 import com.example.e_index.ui.add.screens.AddSubjectScreen
+import com.example.e_index.ui.add.screens.DeleteStudentsScreen
 import com.example.e_index.ui.add.screens.SubjectDetailsEntryScreen
 import com.example.e_index.ui.add.student.AddStudentViewModel
 
@@ -22,6 +23,7 @@ private const val ADD_STUDENT = "add_student"
 private const val ADD_ADMIN = "add_admin"
 private const val ADD_SUBJECT = "add_subject"
 private const val SUBJECT_DETAILS_ENTRY = "subject_details_entry"
+private const val DELETE_STUDENT = "delete_student"
 
 fun NavGraphBuilder.addScreen(navController: NavHostController) {
     composable(TopLevelDestinations.Add.route) {
@@ -37,6 +39,9 @@ fun NavGraphBuilder.addScreen(navController: NavHostController) {
             },
             onAddAdminClicked = {
                 navController.navigate(ADD_ADMIN)
+            },
+            onDeleteStudentClicked = {
+                navController.navigate(DELETE_STUDENT)
             }
         )
     }
@@ -71,6 +76,9 @@ fun NavGraphBuilder.addScreen(navController: NavHostController) {
     }
     composable(ADD_SUBJECT) {
         AddSubjectScreen()
+    }
+    composable(DELETE_STUDENT) {
+        DeleteStudentsScreen()
     }
 }
 
