@@ -128,14 +128,22 @@ fun AddStudentContent(
                 .padding(top = 16.dp),
             value = addStudentState.jmbg,
             onValueChange = {
-                onUserIntent(AddStudentIntent.JmbgChanged(it))
+                if (it.length <= 13) {
+                    onUserIntent(AddStudentIntent.JmbgChanged(it))
+                }
             },
             label = { Text(stringResource(id = R.string.label_jmbg)) },
             keyboardOptions = KeyboardOptions.Default.copy(
                 autoCorrect = true,
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
-            )
+            ),
+            isError = addStudentState.jmbg.length in 1..12,
+            supportingText = {
+                if (addStudentState.jmbg.length in 1..12) {
+                    Text(text = stringResource(id = R.string.error_jmbg_format))
+                }
+            }
         )
 
         OutlinedTextField(
