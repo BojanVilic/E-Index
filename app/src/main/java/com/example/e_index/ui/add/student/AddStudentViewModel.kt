@@ -53,7 +53,10 @@ class AddStudentViewModel @Inject constructor(
                 _addStudentState.update { it.copy(categoryPerformanceMap = updatedCategoryPerformanceMap) }
             }
             is AddStudentIntent.InsertStudent -> insertStudentWithRelevantData()
-            is AddStudentIntent.AddStudentSubjectDetails -> _addStudentState.update { it.copy(addedStudentSubjects = it.addedStudentSubjects.plus(intent.subject)) }
+            is AddStudentIntent.AddStudentSubjectDetails -> {
+                _addStudentState.update { it.copy(addedStudentSubjects = it.addedStudentSubjects.plus(intent.subject)) }
+                resetSubjectDetailsEntryFields()
+            }
         }
     }
 
@@ -96,5 +99,9 @@ class AddStudentViewModel @Inject constructor(
                 studentCategoryList = _addStudentState.value.asStudentCategoryEntity()
             )
         }
+    }
+
+    private fun resetSubjectDetailsEntryFields() {
+        _addStudentState.update { it.copy(selectedSubject = null, selectedSchoolYear = null, subjects = emptyList()) }
     }
 }

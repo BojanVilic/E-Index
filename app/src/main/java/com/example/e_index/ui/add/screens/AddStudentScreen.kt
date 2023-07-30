@@ -117,7 +117,7 @@ fun AddStudentContent(
             label = { Text(stringResource(id = R.string.label_index_number)) },
             keyboardOptions = KeyboardOptions.Default.copy(
                 autoCorrect = true,
-                keyboardType = KeyboardType.Text,
+                keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
             )
         )
@@ -133,7 +133,7 @@ fun AddStudentContent(
             label = { Text(stringResource(id = R.string.label_jmbg)) },
             keyboardOptions = KeyboardOptions.Default.copy(
                 autoCorrect = true,
-                keyboardType = KeyboardType.Text,
+                keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
             )
         )
