@@ -52,11 +52,28 @@ class AddStudentViewModel @Inject constructor(
 
                 _addStudentState.update { it.copy(categoryPerformanceMap = updatedCategoryPerformanceMap) }
             }
-            is AddStudentIntent.InsertStudent -> insertStudentWithRelevantData()
             is AddStudentIntent.AddStudentSubjectDetails -> {
-                _addStudentState.update { it.copy(addedStudentSubjects = it.addedStudentSubjects.plus(intent.subject)) }
+                val categoryDefaultValuesMap = _addStudentState.value.categories.associate { category ->
+                        category.id to CategoryPerformance(
+                            categoryId = category.id,
+                            subjectId = category.subjectId,
+                            schoolYearId = intent.subject.schoolYearId,
+                            earnedPoints = 0,
+                            hasEarnedMinimumPoints = false
+                        )
+                    }
+
+                val updatedCategoryPerformanceMap =  categoryDefaultValuesMap + _addStudentState.value.categoryPerformanceMap
+
+                _addStudentState.update {
+                    it.copy(
+                        addedStudentSubjects = it.addedStudentSubjects + intent.subject,
+                        categoryPerformanceMap = updatedCategoryPerformanceMap
+                    )
+                }
                 resetSubjectDetailsEntryFields()
             }
+            is AddStudentIntent.InsertStudent -> insertStudentWithRelevantData()
         }
     }
 

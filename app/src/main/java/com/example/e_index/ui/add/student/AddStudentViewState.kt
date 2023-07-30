@@ -24,15 +24,20 @@ data class AddStudentViewState(
 
 fun AddStudentViewState.asStudentSubjectList(): List<StudentSubject> {
     return addedStudentSubjects.map { subject ->
+        val relevantCategoryPerformances = categoryPerformanceMap.filterValues { it.subjectId == subject.id }
+        val earnedPointsSum = relevantCategoryPerformances.values.sumOf { it.earnedPoints }
+        val passed = relevantCategoryPerformances.values.all { it.hasEarnedMinimumPoints }
+
         StudentSubject(
             subjectId = subject.id,
             schoolYearId = subject.schoolYearId,
-            mark = categoryPerformanceMap.values.sumOf { it.earnedPoints }.calculateMark(),
-            passed = categoryPerformanceMap.values.all { it.hasEarnedMinimumPoints },
-            sumPoints = categoryPerformanceMap.values.sumOf { it.earnedPoints }
+            mark = earnedPointsSum.calculateMark(),
+            passed = passed,
+            sumPoints = earnedPointsSum
         )
     }
 }
+
 
 fun AddStudentViewState.asStudentCategoryEntity(): List<StudentCategory> {
     return categoryPerformanceMap.values.map { categoryPerformance ->
