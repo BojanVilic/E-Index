@@ -47,8 +47,6 @@ fun DeleteStudentsContent(
 
     var selectedStudent by remember { mutableStateOf<Student?>(null) }
 
-
-
     Column(
         modifier = Modifier
             .fillMaxWidth()

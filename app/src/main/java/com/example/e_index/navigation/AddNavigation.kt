@@ -9,6 +9,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.example.e_index.ui.add.edit_student.EditStudentSubjectScreen
+import com.example.e_index.ui.add.edit_student.EditStudentSubjectsViewModel
 import com.example.e_index.ui.add.screens.AddAdminScreen
 import com.example.e_index.ui.add.screens.AddSchoolYearScreen
 import com.example.e_index.ui.add.screens.AddScreen
@@ -24,6 +26,7 @@ private const val ADD_ADMIN = "add_admin"
 private const val ADD_SUBJECT = "add_subject"
 private const val SUBJECT_DETAILS_ENTRY = "subject_details_entry"
 private const val DELETE_STUDENT = "delete_student"
+private const val EDIT_STUDENT_SUBJECTS = "edit_student_subjects"
 
 fun NavGraphBuilder.addScreen(navController: NavHostController) {
     composable(TopLevelDestinations.Add.route) {
@@ -42,6 +45,9 @@ fun NavGraphBuilder.addScreen(navController: NavHostController) {
             },
             onDeleteStudentClicked = {
                 navController.navigate(DELETE_STUDENT)
+            },
+            onEditStudentSubjects = {
+                navController.navigate(EDIT_STUDENT_SUBJECTS)
             }
         )
     }
@@ -61,6 +67,26 @@ fun NavGraphBuilder.addScreen(navController: NavHostController) {
                 onAddSubjectDetailsClicked = {
                     navController.navigate(SUBJECT_DETAILS_ENTRY)
                 }
+            )
+        }
+        composable(SUBJECT_DETAILS_ENTRY) {
+            val viewModel = it.sharedViewModel<AddStudentViewModel>(navController)
+
+            SubjectDetailsEntryScreen(
+                addStudentViewModel = viewModel
+            )
+        }
+    }
+
+    navigation(
+        startDestination = EDIT_STUDENT_SUBJECTS,
+        route = "edit_student_subject_route"
+    ) {
+        composable(EDIT_STUDENT_SUBJECTS) {
+            val viewModel = it.sharedViewModel<EditStudentSubjectsViewModel>(navController)
+
+            EditStudentSubjectScreen(
+                addStudentViewModel = viewModel
             )
         }
         composable(SUBJECT_DETAILS_ENTRY) {

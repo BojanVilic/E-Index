@@ -25,14 +25,16 @@ fun AddScreen(
     onAddStudentClicked: () -> Unit,
     onAddSubjectClicked: () -> Unit,
     onAddAdminClicked: () -> Unit,
-    onDeleteStudentClicked: () -> Unit
+    onDeleteStudentClicked: () -> Unit,
+    onEditStudentSubjects: () -> Unit
 ) {
     AddContent(
         onAddSchoolYearClicked = onAddSchoolYearClicked,
         onAddStudentClicked = onAddStudentClicked,
         onAddSubjectClicked = onAddSubjectClicked,
         onAddAdminClicked = onAddAdminClicked,
-        onDeleteStudentClicked = onDeleteStudentClicked
+        onDeleteStudentClicked = onDeleteStudentClicked,
+        onEditStudentSubjects = onEditStudentSubjects
     )
 }
 
@@ -42,7 +44,8 @@ fun AddContent(
     onAddStudentClicked: () -> Unit,
     onAddSubjectClicked: () -> Unit,
     onAddAdminClicked: () -> Unit,
-    onDeleteStudentClicked: () -> Unit
+    onDeleteStudentClicked: () -> Unit,
+    onEditStudentSubjects: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -68,6 +71,10 @@ fun AddContent(
         AddDataOption(
             title = R.string.delete_student,
             onRowClicked = onDeleteStudentClicked
+        )
+        AddDataOption(
+            title = R.string.edit_student_subjects,
+            onRowClicked = onEditStudentSubjects
         )
     }
 }
@@ -106,7 +113,8 @@ fun AddContentPreview() {
             onAddStudentClicked = {},
             onAddSubjectClicked = {},
             onAddAdminClicked = {},
-            onDeleteStudentClicked = {}
+            onDeleteStudentClicked = {},
+            onEditStudentSubjects = {}
         )
     }
 }

@@ -33,4 +33,7 @@ interface SubjectDao {
 
     @Query("SELECT * FROM categories WHERE subjectId = :subjectId AND schoolYearId = :schoolYearId")
     suspend fun getCategoriesForSubject(subjectId: Long, schoolYearId: Long): List<Category>
+
+    @Query("SELECT * FROM subjects INNER JOIN student_subject ON id = subjectId WHERE studentId = :studentId")
+    suspend fun getAllSubjectsForStudent(studentId: Long): List<Subject>
 }
