@@ -10,6 +10,7 @@ import com.example.e_index.data.models.SchoolYear
 import com.example.e_index.data.models.Student
 import com.example.e_index.data.models.StudentCategory
 import com.example.e_index.data.models.StudentDetails
+import com.example.e_index.data.models.StudentPointsByCategory
 import com.example.e_index.data.models.StudentSubject
 import com.example.e_index.data.models.Subject
 import com.example.e_index.data.models.SubjectDetails
@@ -87,5 +88,13 @@ class AddRepository @Inject constructor(
 
     suspend fun getStudentDetails(studentId: Long): List<StudentDetails> {
         return studentDao.getStudentDetails(studentId)
+    }
+
+    suspend fun getStudentPointsByCategory(
+        studentId: Long,
+        subjectId: Long,
+        schoolYearId: Long
+    ): List<StudentPointsByCategory> {
+        return studentDao.getStudentPointsByCategory(studentId, subjectId, schoolYearId)
     }
 }

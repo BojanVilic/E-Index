@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.e_index.ui.add.edit_student.EditStudentSubjectScreen
 import com.example.e_index.ui.add.edit_student.EditStudentViewModel
+import com.example.e_index.ui.add.edit_student.EditSubjectDetailsEntryScreen
 import com.example.e_index.ui.add.screens.AddAdminScreen
 import com.example.e_index.ui.add.screens.AddSchoolYearScreen
 import com.example.e_index.ui.add.screens.AddScreen
@@ -27,6 +28,7 @@ private const val ADD_SUBJECT = "add_subject"
 private const val SUBJECT_DETAILS_ENTRY = "subject_details_entry"
 private const val DELETE_STUDENT = "delete_student"
 private const val EDIT_STUDENT = "edit_student"
+private const val EDIT_SUBJECT_DETAILS_ENTRY = "edit_subject_details_entry"
 
 fun NavGraphBuilder.addScreen(navController: NavHostController) {
     composable(TopLevelDestinations.Add.route) {
@@ -88,8 +90,15 @@ fun NavGraphBuilder.addScreen(navController: NavHostController) {
             EditStudentSubjectScreen(
                 editStudentViewModel = viewModel,
                 onEditSubjectDetailsClicked = {
-
+                    navController.navigate(EDIT_SUBJECT_DETAILS_ENTRY)
                 }
+            )
+        }
+        composable(EDIT_SUBJECT_DETAILS_ENTRY) {
+            val viewModel = it.sharedViewModel<EditStudentViewModel>(navController)
+
+            EditSubjectDetailsEntryScreen(
+                editStudentViewModel = viewModel
             )
         }
     }

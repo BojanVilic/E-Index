@@ -22,23 +22,15 @@ class EditStudentViewModel @Inject constructor(
     val editStudentState: StateFlow<EditStudentViewState>
         get() = _editStudentState.asStateFlow()
 
+    private var subjectDetailsList: List<SubjectDetails> = emptyList()
+
     fun processIntent(intent: EditStudentIntent) {
         when (intent) {
             is EditStudentIntent.StudentChanged -> {
                 _editStudentState.update { it.copy(selectedStudent = intent.student) }
                 getSubjectDetails()
             }
-            is EditStudentIntent.EditSubjectDetailsClicked -> loadCategories(intent.subjectId)
-        }
-    }
-
-    private fun loadCategories(subjectId: Long) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _editStudentState.value.selectedStudent?.id?.let { studentId ->
-                val subjectDetailsList = addRepository.getSubjectDetails(studentId)
-
-                _editStudentState.update { it.copy(categories = subjectDetailsList.find { subjectDetails -> subjectDetails.subject.id == subjectId }!!.categories) }
-            }
+            is EditStudentIntent.EditSubjectDetailsClicked -> loadSubjectDetails(intent.subjectId)
         }
     }
 
@@ -50,27 +42,31 @@ class EditStudentViewModel @Inject constructor(
         }
     }
 
+    private fun loadSubjectDetails(subjectId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val selectedSubjectDetails = subjectDetailsList.find { subjectDetails -> subjectDetails.subject.id == subjectId }!!
+            val studentPointsByCategory = addRepository.getStudentPointsByCategory(
+                _editStudentState.value.selectedStudent!!.id,
+                subjectId,
+                selectedSubjectDetails.schoolYear.id
+            )
+
+            _editStudentState.update {
+                it.copy(
+                    categories = selectedSubjectDetails.categories,
+                    selectedSchoolYear = selectedSubjectDetails.schoolYear,
+                    selectedSubject = selectedSubjectDetails.subject,
+                    categoryPoints = studentPointsByCategory
+                )
+            }
+        }
+    }
+
     private fun getSubjectDetails() {
         viewModelScope.launch(Dispatchers.IO) {
             _editStudentState.value.selectedStudent?.id?.let { studentId ->
-                val subjectDetailsList = addRepository.getSubjectDetails(studentId)
-
+                subjectDetailsList = addRepository.getSubjectDetails(studentId)
                 _editStudentState.update { it.copy(subjects = subjectDetailsList.map { subjectDetails -> subjectDetails.subject }) }
-
-//                studentDetailsList.forEach { studentDetails ->
-//                    Log.d("SubjectDetails", "Student name: ${studentDetails.student.name}")
-//                    studentDetails.studentSubjects.forEach { studentSubject ->
-//                        Log.d("SubjectDetails", "Subject name: ${subjectDetailsList.find { it.subject.id == studentSubject.subjectId }!!.subject.name}")
-//                        Log.d("SubjectDetails", "Sum points: ${studentSubject.sumPoints}")
-//                    }
-//                    studentDetails.studentCategories.forEach { studentCategory ->
-//                        val categoryName = findCategoryName(studentCategory.categoryId, subjectDetailsList)
-//                        Log.d("SubjectDetails", "Category name: ${categoryName ?: "N/A"}")
-//                        Log.d("SubjectDetails", "Category id: ${studentCategory.categoryId}")
-//                        Log.d("SubjectDetails", "Category points: ${studentCategory.points}")
-//                    }
-//                    Log.d("SubjectDetails", "------------------------------------")
-//                }
             }
         }
     }

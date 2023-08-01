@@ -9,6 +9,7 @@ import androidx.room.Transaction
 import com.example.e_index.data.models.Student
 import com.example.e_index.data.models.StudentCategory
 import com.example.e_index.data.models.StudentDetails
+import com.example.e_index.data.models.StudentPointsByCategory
 import com.example.e_index.data.models.StudentSubject
 import kotlinx.coroutines.flow.Flow
 
@@ -51,5 +52,19 @@ interface StudentDao {
     @Transaction
     @Query("SELECT * FROM students WHERE id IN (SELECT studentId FROM student_subject WHERE studentId = :studentId)")
     suspend fun getStudentDetails(studentId: Long): List<StudentDetails>
+
+    @Query(
+        """
+        SELECT sc.categoryId, sc.points
+        FROM student_category sc
+        INNER JOIN student_subject ss ON sc.studentId = ss.studentId AND sc.schoolYearId = ss.schoolYearId
+        WHERE sc.studentId = :studentId AND ss.subjectId = :subjectId AND sc.schoolYearId = :schoolYearId
+        """
+    )
+    suspend fun getStudentPointsByCategory(
+        studentId: Long,
+        subjectId: Long,
+        schoolYearId: Long
+    ): List<StudentPointsByCategory>
 }
 

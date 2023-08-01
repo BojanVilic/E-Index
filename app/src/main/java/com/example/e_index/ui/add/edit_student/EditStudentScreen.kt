@@ -71,8 +71,10 @@ fun EditStudentSubjectContent(
             editStudentState.subjects.forEach {
                 CategoryChip(
                     text = it.name,
-                    onChipClicked = {
-
+                    onChipClicked = { subjectName ->
+                        onUserIntent(EditStudentIntent.EditSubjectDetailsClicked(
+                            editStudentState.subjects.find { subject -> subject.name == subjectName }!!.id
+                        ))
                         onEditSubjectDetailsClicked()
                     }
                 )

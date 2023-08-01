@@ -37,6 +37,7 @@ import com.example.e_index.data.models.Subject
 import com.example.e_index.ui.add.student.AddStudentIntent
 import com.example.e_index.ui.add.student.AddStudentViewModel
 import com.example.e_index.ui.add.student.AddStudentViewState
+import com.example.e_index.ui.add.student.CategoryPerformance
 import com.example.e_index.ui.add.student.calculateCategoryPerformance
 import com.example.e_index.ui.theme.EIndexTheme
 import com.example.e_index.util.DropdownSelectionMenu
@@ -108,7 +109,7 @@ fun SubjectDetailsEntryContent(
                     subject = addStudentState.selectedSubject,
                     category = category,
                     onUserIntent = {
-                        onUserIntent(it)
+                        onUserIntent(AddStudentIntent.CategoryPointsChanged(it))
                     }
                 )
             }
@@ -136,10 +137,11 @@ fun SubjectDetailsEntryContent(
 fun EnterPointsForCategoryRow(
     subject: Subject,
     category: Category,
-    onUserIntent: (AddStudentIntent.CategoryPointsChanged) -> Unit
+    onUserIntent: (CategoryPerformance) -> Unit,
+    points: String = ""
 ) {
 
-    var currentPoints by remember { mutableStateOf("") }
+    var currentPoints by remember { mutableStateOf(points) }
 
     Row(
         modifier = Modifier.padding(vertical = 8.dp),
@@ -158,9 +160,7 @@ fun EnterPointsForCategoryRow(
             onValueChange = { points ->
                 currentPoints = points
                 onUserIntent(
-                    AddStudentIntent.CategoryPointsChanged(
-                        calculateCategoryPerformance(subject, category, points)
-                    )
+                    calculateCategoryPerformance(subject, category, points)
                 )
             },
             label = { Text(stringResource(id = R.string.label_points)) },
