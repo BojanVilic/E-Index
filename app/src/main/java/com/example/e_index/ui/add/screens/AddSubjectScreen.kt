@@ -3,6 +3,7 @@
 package com.example.e_index.ui.add.screens
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -214,12 +215,16 @@ fun AddSubjectContent(
 fun CategoryChip(
     text: String,
     fontWeight: FontWeight = FontWeight.Normal,
-    borderWidth: Int = 1
+    borderWidth: Int = 1,
+    onChipClicked: (String) -> Unit = {}
 ) {
     Box(
         modifier = Modifier
             .padding(horizontal = 4.dp, vertical = 4.dp)
             .border(width = borderWidth.dp, color = Color.Gray, shape = RoundedCornerShape(8.dp))
+            .clickable {
+                onChipClicked(text)
+            }
     ) {
         Text(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),

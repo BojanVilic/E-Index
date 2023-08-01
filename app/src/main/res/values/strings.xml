@@ -33,4 +33,5 @@
     <string name="edit_student_subjects">Ažuriranje predmeta po studentu</string>
     <string name="label_delete_from_database">Obriši iz data baze</string>
     <string name="error_jmbg_format">JMBG mora biti tačno 13 cifara dugačak.</string>
+    <string name="student_subjects_list">Spisak predmeta studenta</string>
 </resources>

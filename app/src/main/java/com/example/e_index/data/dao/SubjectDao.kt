@@ -6,7 +6,9 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.example.e_index.data.models.Category
+import com.example.e_index.data.models.StudentCategory
 import com.example.e_index.data.models.Subject
+import com.example.e_index.data.models.SubjectDetails
 
 @Dao
 interface SubjectDao {
@@ -36,4 +38,11 @@ interface SubjectDao {
 
     @Query("SELECT * FROM subjects INNER JOIN student_subject ON id = subjectId WHERE studentId = :studentId")
     suspend fun getAllSubjectsForStudent(studentId: Long): List<Subject>
+
+    @Query("SELECT * FROM student_category WHERE studentId = :studentId AND schoolYearId = :schoolYearId")
+    suspend fun getStudentCategoryPerformances(studentId: Long, schoolYearId: Long): List<StudentCategory>
+
+    @Transaction
+    @Query("SELECT * FROM subjects WHERE id IN (SELECT subjectId FROM student_subject WHERE studentId = :studentId)")
+    suspend fun getSubjectDetails(studentId: Long): List<SubjectDetails>
 }

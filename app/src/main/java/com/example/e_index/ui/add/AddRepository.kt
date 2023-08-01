@@ -9,8 +9,10 @@ import com.example.e_index.data.models.Category
 import com.example.e_index.data.models.SchoolYear
 import com.example.e_index.data.models.Student
 import com.example.e_index.data.models.StudentCategory
+import com.example.e_index.data.models.StudentDetails
 import com.example.e_index.data.models.StudentSubject
 import com.example.e_index.data.models.Subject
+import com.example.e_index.data.models.SubjectDetails
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -77,5 +79,13 @@ class AddRepository @Inject constructor(
 
     fun getAllStudents(): Flow<List<Student>> {
         return studentDao.getAllStudents()
+    }
+
+    suspend fun getSubjectDetails(studentId: Long): List<SubjectDetails> {
+        return subjectDao.getSubjectDetails(studentId)
+    }
+
+    suspend fun getStudentDetails(studentId: Long): List<StudentDetails> {
+        return studentDao.getStudentDetails(studentId)
     }
 }

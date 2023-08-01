@@ -8,6 +8,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.example.e_index.data.models.Student
 import com.example.e_index.data.models.StudentCategory
+import com.example.e_index.data.models.StudentDetails
 import com.example.e_index.data.models.StudentSubject
 import kotlinx.coroutines.flow.Flow
 
@@ -46,5 +47,9 @@ interface StudentDao {
 
     @Query("SELECT * FROM students")
     fun getAllStudents(): Flow<List<Student>>
+
+    @Transaction
+    @Query("SELECT * FROM students WHERE id IN (SELECT studentId FROM student_subject WHERE studentId = :studentId)")
+    suspend fun getStudentDetails(studentId: Long): List<StudentDetails>
 }
 
