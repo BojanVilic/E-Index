@@ -28,6 +28,7 @@
     <string name="add_subject_to_student">Dodeljivanje predmeta studentu</string>
     <string name="add_points_for_categories">Dodeljivanje poena za kategorije</string>
     <string name="add_subject_details">Dodeli predmet</string>
+    <string name="add_new_subject">Dodeli novi predmet</string>
     <string name="add_subject_details_success">Predmet uspešno dodeljen!</string>
     <string name="delete_student">Brisanje studenta</string>
     <string name="edit_student_subjects">Ažuriranje predmeta po studentu</string>

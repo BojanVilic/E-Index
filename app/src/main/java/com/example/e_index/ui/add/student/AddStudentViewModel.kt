@@ -44,7 +44,6 @@ class AddStudentViewModel @Inject constructor(
                 _addStudentState.value.selectedSchoolYear?.let { schoolYear ->
                     getCategoriesForSubjectAndSchoolYear(intent.subject.id, schoolYear.id)
                 }
-
             }
             is AddStudentIntent.CategoryPointsChanged -> {
                 val updatedCategoryPerformanceMap = _addStudentState.value.categoryPerformanceMap.toMutableMap()

@@ -32,15 +32,33 @@ class EditStudentViewModel @Inject constructor(
                 _editStudentState.update { it.copy(selectedStudent = intent.student) }
                 getSubjectDetails()
             }
-            is EditStudentIntent.EditSubjectDetailsClicked -> loadSubjectDetails(intent.subjectId)
+            is EditStudentIntent.EditStudentCategoryPointsClicked -> loadSubjectDetails(intent.subjectId)
             is EditStudentIntent.CategoryPointsChanged -> {
                 val updatedCategoryPerformanceMap = _editStudentState.value.categoryPerformanceMap.toMutableMap()
                 updatedCategoryPerformanceMap[intent.categoryPerformance.categoryId] = intent.categoryPerformance
 
                 _editStudentState.update { it.copy(categoryPerformanceMap = updatedCategoryPerformanceMap) }
             }
-
             is EditStudentIntent.UpsertStudentSubjectDetails -> upsertStudentWithRelevantData(intent.subject)
+            is EditStudentIntent.AddNewSubjectClicked -> {
+                resetSubjectDetailsEntryFields()
+            }
+
+            is EditStudentIntent.SchoolYearChanged -> {
+                _editStudentState.update {
+                    it.copy(selectedSchoolYear = intent.schoolYear)
+                }
+                getSubjectsForSchoolYear(intent.schoolYear.id)
+                resetSubjectAndCategories()
+            }
+            is EditStudentIntent.SubjectChanged -> {
+                _editStudentState.update {
+                    it.copy(selectedSubject = intent.subject)
+                }
+                _editStudentState.value.selectedSchoolYear?.let { schoolYear ->
+                    getCategoriesForSubjectAndSchoolYear(intent.subject.id, schoolYear.id)
+                }
+            }
         }
     }
 
@@ -48,7 +66,24 @@ class EditStudentViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             addRepository.getAllStudents().collect { students ->
                 _editStudentState.update { it.copy(students = students) }
+                _editStudentState.update { it.copy(schoolYears = addRepository.getAllSchoolYears()) }
             }
+        }
+    }
+
+    private fun resetSubjectAndCategories() {
+        _editStudentState.update { it.copy(selectedSubject = null, categories = emptyList()) }
+    }
+
+    private fun getSubjectsForSchoolYear(schoolYearId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _editStudentState.update { it.copy(allSubjects = addRepository.getAllSubjects(schoolYearId)) }
+        }
+    }
+
+    private fun getCategoriesForSubjectAndSchoolYear(subjectId: Long, schoolYearId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _editStudentState.update { it.copy(categories = addRepository.getCategoriesForSubject(subjectId, schoolYearId)) }
         }
     }
 
@@ -74,7 +109,8 @@ class EditStudentViewModel @Inject constructor(
                     categories = selectedSubjectDetails.categories,
                     selectedSchoolYear = selectedSubjectDetails.schoolYear,
                     selectedSubject = selectedSubjectDetails.subject,
-                    categoryPerformanceMap = categoryPerformanceMap
+                    categoryPerformanceMap = categoryPerformanceMap,
+                    screenType = ScreenType.EDIT_SUBJECT_POINTS
                 )
             }
         }
@@ -84,7 +120,7 @@ class EditStudentViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _editStudentState.value.selectedStudent?.id?.let { studentId ->
                 subjectDetailsList = addRepository.getSubjectDetails(studentId)
-                _editStudentState.update { it.copy(subjects = subjectDetailsList.map { subjectDetails -> subjectDetails.subject }) }
+                _editStudentState.update { it.copy(studentSubjects = subjectDetailsList.map { subjectDetails -> subjectDetails.subject }) }
             }
         }
     }
@@ -92,7 +128,7 @@ class EditStudentViewModel @Inject constructor(
     private fun upsertStudentWithRelevantData(subject: Subject) {
         _editStudentState.update {
             it.copy(
-                addedStudentSubjects = it.addedStudentSubjects + subject
+                studentSubjects = it.studentSubjects + subject
             )
         }
 
@@ -105,5 +141,13 @@ class EditStudentViewModel @Inject constructor(
                 studentCategoryList = _editStudentState.value.asStudentCategoryEntity()
             )
         }
+    }
+
+    private fun resetSubjectDetailsEntryFields() {
+        _editStudentState.update { it.copy(
+            selectedSubject = null,
+            selectedSchoolYear = null,
+            screenType = ScreenType.ADD_NEW_SUBJECT
+        )}
     }
 }

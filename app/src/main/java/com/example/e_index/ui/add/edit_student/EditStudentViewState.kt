@@ -11,17 +11,19 @@ import com.example.e_index.ui.add.student.calculateMark
 
 data class EditStudentViewState(
     val students: List<Student> = emptyList(),
-    val subjects: List<Subject> = emptyList(),
+    val studentSubjects: List<Subject> = emptyList(),
+    val schoolYears: List<SchoolYear> = emptyList(),
+    val allSubjects: List<Subject> = emptyList(),
     val categories: List<Category> = emptyList(),
     val selectedStudent: Student? = null,
     val selectedSchoolYear: SchoolYear? = null,
     val selectedSubject: Subject? = null,
-    val addedStudentSubjects: List<Subject> = emptyList(),
-    val categoryPerformanceMap: Map<Long, CategoryPerformance> = emptyMap()
+    val categoryPerformanceMap: Map<Long, CategoryPerformance> = emptyMap(),
+    val screenType: ScreenType = ScreenType.EDIT_SUBJECT_POINTS
 )
 
 fun EditStudentViewState.asStudentSubjectList(): List<StudentSubject> {
-    return addedStudentSubjects.map { subject ->
+    return studentSubjects.map { subject ->
         val relevantCategoryPerformances = categoryPerformanceMap.filterValues { it.subjectId == subject.id }
         val earnedPointsSum = relevantCategoryPerformances.values.sumOf { it.earnedPoints }
         val passed = relevantCategoryPerformances.values.all { it.hasEarnedMinimumPoints }
@@ -46,4 +48,9 @@ fun EditStudentViewState.asStudentCategoryEntity(): List<StudentCategory> {
             passed = categoryPerformance.hasEarnedMinimumPoints
         )
     }
+}
+
+enum class ScreenType {
+    ADD_NEW_SUBJECT,
+    EDIT_SUBJECT_POINTS
 }

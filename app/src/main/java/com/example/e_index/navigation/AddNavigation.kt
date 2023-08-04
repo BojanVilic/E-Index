@@ -89,7 +89,7 @@ fun NavGraphBuilder.addScreen(navController: NavHostController) {
 
             EditStudentSubjectScreen(
                 editStudentViewModel = viewModel,
-                onEditSubjectDetailsClicked = {
+                onSubjectDetailsClicked = {
                     navController.navigate(EDIT_SUBJECT_DETAILS_ENTRY)
                 }
             )

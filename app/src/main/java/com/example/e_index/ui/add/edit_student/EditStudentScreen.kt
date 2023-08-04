@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,7 +26,7 @@ import com.example.e_index.util.DropdownSelectionMenu
 @Composable
 fun EditStudentSubjectScreen(
     editStudentViewModel: EditStudentViewModel,
-    onEditSubjectDetailsClicked: () -> Unit
+    onSubjectDetailsClicked: () -> Unit
 ) {
     val editStudentState by editStudentViewModel.editStudentState.collectAsState()
 
@@ -33,7 +35,7 @@ fun EditStudentSubjectScreen(
         onUserIntent = { intent ->
             editStudentViewModel.processIntent(intent)
         },
-        onEditSubjectDetailsClicked = onEditSubjectDetailsClicked
+        onSubjectDetailsClicked = onSubjectDetailsClicked
     )
 }
 
@@ -41,7 +43,7 @@ fun EditStudentSubjectScreen(
 fun EditStudentSubjectContent(
     editStudentState: EditStudentViewState,
     onUserIntent: (EditStudentIntent) -> Unit,
-    onEditSubjectDetailsClicked: () -> Unit
+    onSubjectDetailsClicked: () -> Unit
 ) {
 
     Column(
@@ -68,17 +70,32 @@ fun EditStudentSubjectContent(
         )
 
         FlowRow {
-            editStudentState.subjects.forEach {
+            editStudentState.studentSubjects.forEach {
                 CategoryChip(
                     text = it.name,
                     onChipClicked = { subjectName ->
-                        onUserIntent(EditStudentIntent.EditSubjectDetailsClicked(
-                            editStudentState.subjects.find { subject -> subject.name == subjectName }!!.id
+                        onUserIntent(EditStudentIntent.EditStudentCategoryPointsClicked(
+                            editStudentState.studentSubjects.find { subject -> subject.name == subjectName }!!.id
                         ))
-                        onEditSubjectDetailsClicked()
+                        onSubjectDetailsClicked()
                     }
                 )
             }
+        }
+
+        Button(
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(vertical = 16.dp),
+            onClick = {
+                onUserIntent(EditStudentIntent.AddNewSubjectClicked)
+                onSubjectDetailsClicked()
+            }
+        ) {
+            Text(
+                text = stringResource(id = R.string.add_new_subject),
+                fontSize = 18.sp
+            )
         }
     }
 
@@ -91,7 +108,7 @@ fun EditStudentSubjectContentPreview() {
         EditStudentSubjectContent(
             editStudentState = EditStudentViewState(),
             onUserIntent = {},
-            onEditSubjectDetailsClicked = {}
+            onSubjectDetailsClicked = {}
         )
     }
 }

@@ -46,6 +46,7 @@ fun EditSubjectDetailsEntryContent(
 
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+    val enableDropDownSelection = editStudentState.screenType == ScreenType.ADD_NEW_SUBJECT
 
     Column(
         modifier = Modifier
@@ -57,26 +58,26 @@ fun EditSubjectDetailsEntryContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            options = emptyList(),
+            options = editStudentState.schoolYears.map { it.name },
             selectedValue = editStudentState.selectedSchoolYear?.name?: "",
             onValueChange = { newSchoolYear ->
-//                onUserIntent(AddStudentIntent.SchoolYearChanged(addStudentState.schoolYears.find { it.name == newSchoolYear }!!))
+                onUserIntent(EditStudentIntent.SchoolYearChanged(editStudentState.schoolYears.find { it.name == newSchoolYear }!!))
             },
             label = stringResource(id = R.string.label_school_year),
-            enabled = false
+            enabled = enableDropDownSelection
         )
 
         DropdownSelectionMenu(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            options = emptyList(),
+            options = editStudentState.allSubjects.map { it.name },
             selectedValue = editStudentState.selectedSubject?.name?: "",
             onValueChange = { newSubject ->
-//                onUserIntent(AddStudentIntent.SubjectChanged(addStudentState.subjects.find { it.name == newSubject }!!))
+                onUserIntent(EditStudentIntent.SubjectChanged(editStudentState.allSubjects.find { it.name == newSubject }!!))
             },
             label = stringResource(id = R.string.label_subject),
-            enabled = false
+            enabled = enableDropDownSelection
         )
 
         if (editStudentState.selectedSubject != null) {
@@ -94,7 +95,7 @@ fun EditSubjectDetailsEntryContent(
                     onUserIntent = {
                         onUserIntent(EditStudentIntent.CategoryPointsChanged(it))
                     },
-                    points = editStudentState.categoryPerformanceMap[category.id]?.earnedPoints.toString()
+                    points = (editStudentState.categoryPerformanceMap[category.id]?.earnedPoints?: 0).toString()
                 )
             }
 
