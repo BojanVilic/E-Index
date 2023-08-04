@@ -6,6 +6,7 @@ import com.example.e_index.data.dao.StudentDao
 import com.example.e_index.data.dao.SubjectDao
 import com.example.e_index.ui.add.AddRepository
 import com.example.e_index.ui.login.LoginRepository
+import com.example.e_index.ui.search.SearchRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +38,22 @@ object RepositoryModule {
         schoolYearDao: SchoolYearDao
     ): AddRepository {
         return AddRepository(
+            adminDao,
+            studentDao,
+            subjectDao,
+            schoolYearDao
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun getSearchRepository(
+        adminDao: AdminDao,
+        studentDao: StudentDao,
+        subjectDao: SubjectDao,
+        schoolYearDao: SchoolYearDao
+    ): SearchRepository {
+        return SearchRepository(
             adminDao,
             studentDao,
             subjectDao,

@@ -35,4 +35,9 @@
     <string name="label_delete_from_database">Obriši iz data baze</string>
     <string name="error_jmbg_format">JMBG mora biti tačno 13 cifara dugačak.</string>
     <string name="student_subjects_list">Spisak predmeta studenta</string>
+    <string name="search_students">Pretraži studente</string>
+    <string name="search_student_subjects_info">Pretraži informacije o predmetima studenta</string>
+    <string name="search_categories_for_subject">Pretraži kategorije za predmet</string>
+    <string name="search_student_points_for_subjects">Pregled bodovnog stanja po predmetima</string>
+    <string name="search_student_passed_subjects">Pretraži položene i nepoložene predmete</string>
 </resources>
