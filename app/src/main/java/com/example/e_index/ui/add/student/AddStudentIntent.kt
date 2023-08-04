@@ -1,7 +1,7 @@
 package com.example.e_index.ui.add.student
 
-import com.example.e_index.data.models.SchoolYear
-import com.example.e_index.data.models.Subject
+import com.example.e_index.data.models.entities.SchoolYear
+import com.example.e_index.data.models.entities.Subject
 
 sealed class AddStudentIntent {
     data class NameChanged(val input: String) : AddStudentIntent()

@@ -6,11 +6,12 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.e_index.data.models.Student
-import com.example.e_index.data.models.StudentCategory
-import com.example.e_index.data.models.StudentDetails
-import com.example.e_index.data.models.StudentPointsByCategory
-import com.example.e_index.data.models.StudentSubject
+import com.example.e_index.data.models.entities.Student
+import com.example.e_index.data.models.entities.StudentCategory
+import com.example.e_index.data.models.entities.StudentSubject
+import com.example.e_index.data.models.response_models.StudentDetails
+import com.example.e_index.data.models.response_models.StudentPointsByCategory
+import com.example.e_index.data.models.response_models.StudentPointsDetails
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -66,5 +67,21 @@ interface StudentDao {
         subjectId: Long,
         schoolYearId: Long
     ): List<StudentPointsByCategory>
+
+    @Query(
+        """
+        SELECT c.id AS categoryId, c.name AS categoryName, COALESCE(sc.points, 0) AS categoryPoints, ss.subjectId, s.name AS subjectName, ss.schoolYearId, sy.name AS schoolYearName, ss.passed
+        FROM subjects s
+        JOIN student_subject ss ON s.id = ss.subjectId
+        JOIN school_years sy ON ss.schoolYearId = sy.id
+        JOIN categories c ON s.id = c.subjectId
+        LEFT JOIN student_category sc ON ss.studentId = sc.studentId AND ss.schoolYearId = sc.schoolYearId AND c.id = sc.categoryId
+        WHERE ss.studentId = :studentId
+        """
+    )
+    suspend fun getStudentPointsDetailsForAllSubjects(
+        studentId: Long
+    ): List<StudentPointsDetails>
+
 }
 

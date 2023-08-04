@@ -2,7 +2,7 @@ package com.example.e_index.ui.add.uimodels
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import com.example.e_index.data.models.Admin
+import com.example.e_index.data.models.entities.Admin
 
 data class AdminUi(
     var username: MutableState<String> = mutableStateOf(""),

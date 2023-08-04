@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.e_index.ui.search.SearchScreen
 import com.example.e_index.ui.search.searchOptionNavigationMap
+import com.example.e_index.ui.search.student_search.StudentPointsBySubjectScreen
 
 const val SEARCH_STUDENTS = "search_students"
 const val SEARCH_STUDENT_SUBJECT_INFO = "search_student_subject_info"
@@ -19,5 +20,8 @@ fun NavGraphBuilder.searchScreen(navController: NavHostController) {
                 navController.navigate(searchOptionNavigationMap[searchOption]!!)
             }
         )
+    }
+    composable(SEARCH_STUDENT_POINTS_BY_SUBJECT) {
+        StudentPointsBySubjectScreen()
     }
 }

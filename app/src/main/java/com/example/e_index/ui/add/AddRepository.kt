@@ -4,16 +4,16 @@ import com.example.e_index.data.dao.AdminDao
 import com.example.e_index.data.dao.SchoolYearDao
 import com.example.e_index.data.dao.StudentDao
 import com.example.e_index.data.dao.SubjectDao
-import com.example.e_index.data.models.Admin
-import com.example.e_index.data.models.Category
-import com.example.e_index.data.models.SchoolYear
-import com.example.e_index.data.models.Student
-import com.example.e_index.data.models.StudentCategory
-import com.example.e_index.data.models.StudentDetails
-import com.example.e_index.data.models.StudentPointsByCategory
-import com.example.e_index.data.models.StudentSubject
-import com.example.e_index.data.models.Subject
-import com.example.e_index.data.models.SubjectDetails
+import com.example.e_index.data.models.entities.Admin
+import com.example.e_index.data.models.entities.Category
+import com.example.e_index.data.models.entities.SchoolYear
+import com.example.e_index.data.models.entities.Student
+import com.example.e_index.data.models.entities.StudentCategory
+import com.example.e_index.data.models.response_models.StudentDetails
+import com.example.e_index.data.models.response_models.StudentPointsByCategory
+import com.example.e_index.data.models.entities.StudentSubject
+import com.example.e_index.data.models.entities.Subject
+import com.example.e_index.data.models.response_models.SubjectDetails
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

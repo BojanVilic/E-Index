@@ -1,11 +1,11 @@
 package com.example.e_index.ui.add.edit_student
 
-import com.example.e_index.data.models.Category
-import com.example.e_index.data.models.SchoolYear
-import com.example.e_index.data.models.Student
-import com.example.e_index.data.models.StudentCategory
-import com.example.e_index.data.models.StudentSubject
-import com.example.e_index.data.models.Subject
+import com.example.e_index.data.models.entities.Category
+import com.example.e_index.data.models.entities.SchoolYear
+import com.example.e_index.data.models.entities.Student
+import com.example.e_index.data.models.entities.StudentCategory
+import com.example.e_index.data.models.entities.StudentSubject
+import com.example.e_index.data.models.entities.Subject
 import com.example.e_index.ui.add.student.CategoryPerformance
 import com.example.e_index.ui.add.student.calculateMark
 

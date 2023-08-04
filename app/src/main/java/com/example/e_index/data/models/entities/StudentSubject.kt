@@ -1,16 +1,17 @@
-package com.example.e_index.data.models
+package com.example.e_index.data.models.entities
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 
+
 @Entity(
-    tableName = "student_category",
-    primaryKeys = ["categoryId", "studentId"],
+    tableName = "student_subject",
+    primaryKeys = ["subjectId", "studentId"],
     foreignKeys = [
         ForeignKey(
-            entity = Category::class,
+            entity = Subject::class,
             parentColumns = ["id"],
-            childColumns = ["categoryId"]
+            childColumns = ["subjectId"]
         ),
         ForeignKey(
             entity = Student::class,
@@ -25,10 +26,11 @@ import androidx.room.ForeignKey
         )
     ]
 )
-data class StudentCategory(
-    val categoryId: Long = 0,
+data class StudentSubject(
+    val subjectId: Long,
     val studentId: Long = 0,
-    val schoolYearId: Long = 0,
-    val points: Int = 0,
-    val passed: Boolean = false
+    val schoolYearId: Long,
+    val mark: Int,
+    val passed: Boolean,
+    val sumPoints: Int
 )

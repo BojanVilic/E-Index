@@ -2,8 +2,8 @@ package com.example.e_index.ui.add.edit_student
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.e_index.data.models.Subject
-import com.example.e_index.data.models.SubjectDetails
+import com.example.e_index.data.models.entities.Subject
+import com.example.e_index.data.models.response_models.SubjectDetails
 import com.example.e_index.ui.add.AddRepository
 import com.example.e_index.ui.add.student.CategoryPerformance
 import dagger.hilt.android.lifecycle.HiltViewModel

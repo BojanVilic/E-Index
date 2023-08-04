@@ -1,7 +1,10 @@
-package com.example.e_index.data.models
+package com.example.e_index.data.models.response_models
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import com.example.e_index.data.models.entities.Category
+import com.example.e_index.data.models.entities.SchoolYear
+import com.example.e_index.data.models.entities.Subject
 
 data class SubjectDetails(
     @Embedded val subject: Subject,

@@ -1,7 +1,7 @@
 package com.example.e_index.ui.add.student
 
-import com.example.e_index.data.models.Category
-import com.example.e_index.data.models.Subject
+import com.example.e_index.data.models.entities.Category
+import com.example.e_index.data.models.entities.Subject
 
 data class CategoryPerformance(
     val categoryId: Long,

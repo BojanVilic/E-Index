@@ -5,10 +5,10 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.e_index.data.models.Category
-import com.example.e_index.data.models.StudentCategory
-import com.example.e_index.data.models.Subject
-import com.example.e_index.data.models.SubjectDetails
+import com.example.e_index.data.models.entities.Category
+import com.example.e_index.data.models.entities.StudentCategory
+import com.example.e_index.data.models.entities.Subject
+import com.example.e_index.data.models.response_models.SubjectDetails
 
 @Dao
 interface SubjectDao {

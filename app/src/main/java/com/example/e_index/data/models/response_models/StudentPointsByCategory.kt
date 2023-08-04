@@ -1,4 +1,4 @@
-package com.example.e_index.data.models
+package com.example.e_index.data.models.response_models
 
 data class StudentPointsByCategory(
     val categoryId: Long,

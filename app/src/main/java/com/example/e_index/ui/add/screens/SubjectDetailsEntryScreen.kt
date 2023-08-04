@@ -32,8 +32,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.e_index.R
-import com.example.e_index.data.models.Category
-import com.example.e_index.data.models.Subject
+import com.example.e_index.data.models.entities.Category
+import com.example.e_index.data.models.entities.Subject
 import com.example.e_index.ui.add.student.AddStudentIntent
 import com.example.e_index.ui.add.student.AddStudentViewModel
 import com.example.e_index.ui.add.student.AddStudentViewState

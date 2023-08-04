@@ -2,7 +2,7 @@ package com.example.e_index.ui.add.uimodels
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import com.example.e_index.data.models.Category
+import com.example.e_index.data.models.entities.Category
 
 data class CategoryUi(
     var name: MutableState<String> = mutableStateOf(""),

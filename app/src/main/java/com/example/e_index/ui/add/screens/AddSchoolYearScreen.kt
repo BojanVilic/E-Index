@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.e_index.R
-import com.example.e_index.data.models.SchoolYear
+import com.example.e_index.data.models.entities.SchoolYear
 import com.example.e_index.ui.add.AddViewModel
 import com.example.e_index.ui.theme.EIndexTheme
 import com.example.e_index.util.TextFieldValidator

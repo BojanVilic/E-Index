@@ -53,7 +53,6 @@ fun NavGraphBuilder.addScreen(navController: NavHostController) {
             }
         )
     }
-
     composable(ADD_SCHOOL_YEAR) {
         AddSchoolYearScreen()
     }

@@ -2,7 +2,7 @@ package com.example.e_index.ui.add.student
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.e_index.data.models.Student
+import com.example.e_index.data.models.entities.Student
 import com.example.e_index.ui.add.AddRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

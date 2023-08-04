@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import com.example.e_index.data.UserRole
 import com.example.e_index.data.dao.AdminDao
 import com.example.e_index.data.dao.StudentDao
-import com.example.e_index.data.models.Admin
+import com.example.e_index.data.models.entities.Admin
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -19,6 +19,7 @@ class LoginRepository @Inject constructor(
 
     companion object {
         var currentSessionRole: UserRole? by mutableStateOf(null)
+        var currentStudentId: Long? by mutableStateOf(null)
     }
 
     private val _loginStatus = MutableStateFlow<Result<UserRole?>>(Result.failure(Throwable()))
@@ -47,16 +48,19 @@ class LoginRepository @Inject constructor(
             val admin = adminDao.getAdminByUsernameAndPassword(username, password)
             if (admin != null) {
                 _loginStatus.emit(Result.success(UserRole.ADMIN))
+                currentSessionRole = UserRole.ADMIN
             } else {
                 _loginStatus.emit(Result.failure(Throwable("Pogrešno korisničko ime ili lozinka")))
             }
         }
     }
 
-    private suspend fun studentLogin(username: String, password: String){
+    private suspend fun studentLogin(username: String, password: String) {
         val student = studentDao.getStudentByUsernameAndPassword(username, password)
         if (student != null) {
             _loginStatus.emit(Result.success(UserRole.STUDENT))
+            currentSessionRole = UserRole.STUDENT
+            currentStudentId = student.id
         } else {
             _loginStatus.emit(Result.failure(Throwable("Pogrešno korisničko ime ili lozinka")))
         }

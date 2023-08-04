@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.e_index.data.models.SchoolYear
+import com.example.e_index.data.models.entities.SchoolYear
 
 @Dao
 interface SchoolYearDao {

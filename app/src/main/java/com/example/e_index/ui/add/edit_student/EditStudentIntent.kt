@@ -1,8 +1,8 @@
 package com.example.e_index.ui.add.edit_student
 
-import com.example.e_index.data.models.SchoolYear
-import com.example.e_index.data.models.Student
-import com.example.e_index.data.models.Subject
+import com.example.e_index.data.models.entities.SchoolYear
+import com.example.e_index.data.models.entities.Student
+import com.example.e_index.data.models.entities.Subject
 import com.example.e_index.ui.add.student.CategoryPerformance
 
 sealed class EditStudentIntent {
