@@ -13,6 +13,6 @@ sealed class AddStudentIntent {
     data class SchoolYearChanged(val schoolYear: SchoolYear) : AddStudentIntent()
     data class SubjectChanged(val subject: Subject) : AddStudentIntent()
     data class CategoryPointsChanged(val categoryPerformance: CategoryPerformance) : AddStudentIntent()
-    object InsertStudent : AddStudentIntent()
     data class AddStudentSubjectDetails(val subject: Subject) : AddStudentIntent()
+    object InsertStudent : AddStudentIntent()
 }

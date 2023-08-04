@@ -2,8 +2,10 @@ package com.example.e_index.ui.add.edit_student
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.e_index.data.models.Subject
 import com.example.e_index.data.models.SubjectDetails
 import com.example.e_index.ui.add.AddRepository
+import com.example.e_index.ui.add.student.CategoryPerformance
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +33,14 @@ class EditStudentViewModel @Inject constructor(
                 getSubjectDetails()
             }
             is EditStudentIntent.EditSubjectDetailsClicked -> loadSubjectDetails(intent.subjectId)
+            is EditStudentIntent.CategoryPointsChanged -> {
+                val updatedCategoryPerformanceMap = _editStudentState.value.categoryPerformanceMap.toMutableMap()
+                updatedCategoryPerformanceMap[intent.categoryPerformance.categoryId] = intent.categoryPerformance
+
+                _editStudentState.update { it.copy(categoryPerformanceMap = updatedCategoryPerformanceMap) }
+            }
+
+            is EditStudentIntent.UpsertStudentSubjectDetails -> upsertStudentWithRelevantData(intent.subject)
         }
     }
 
@@ -51,12 +61,20 @@ class EditStudentViewModel @Inject constructor(
                 selectedSubjectDetails.schoolYear.id
             )
 
+            val categoryPerformanceMap = studentPointsByCategory.associate { it.categoryId to CategoryPerformance(
+                categoryId = it.categoryId,
+                subjectId = it.subjectId,
+                schoolYearId = it.schoolYearId,
+                earnedPoints = it.points,
+                hasEarnedMinimumPoints = it.passed
+            )}
+
             _editStudentState.update {
                 it.copy(
                     categories = selectedSubjectDetails.categories,
                     selectedSchoolYear = selectedSubjectDetails.schoolYear,
                     selectedSubject = selectedSubjectDetails.subject,
-                    categoryPoints = studentPointsByCategory
+                    categoryPerformanceMap = categoryPerformanceMap
                 )
             }
         }
@@ -71,8 +89,21 @@ class EditStudentViewModel @Inject constructor(
         }
     }
 
-    fun findCategoryName(categoryId: Long, subjectDetailsList: List<SubjectDetails>): String? {
-        val subjectDetails = subjectDetailsList.find { it.categories.any { it.id == categoryId } }
-        return subjectDetails?.categories?.find { it.id == categoryId }?.name
+    private fun upsertStudentWithRelevantData(subject: Subject) {
+        _editStudentState.update {
+            it.copy(
+                addedStudentSubjects = it.addedStudentSubjects + subject
+            )
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val student = _editStudentState.value.selectedStudent!!
+
+            addRepository.insertStudentWithRelevantData(
+                student = student,
+                studentSubjectList = _editStudentState.value.asStudentSubjectList(),
+                studentCategoryList = _editStudentState.value.asStudentCategoryEntity()
+            )
+        }
     }
 }

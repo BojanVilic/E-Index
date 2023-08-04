@@ -92,9 +92,9 @@ fun EditSubjectDetailsEntryContent(
                     subject = editStudentState.selectedSubject,
                     category = category,
                     onUserIntent = {
-//                        onUserIntent(it)
+                        onUserIntent(EditStudentIntent.CategoryPointsChanged(it))
                     },
-                    points = (editStudentState.categoryPoints.find { it.categoryId == category.id }?.points?: 0).toString()
+                    points = editStudentState.categoryPerformanceMap[category.id]?.earnedPoints.toString()
                 )
             }
 
@@ -105,7 +105,7 @@ fun EditSubjectDetailsEntryContent(
                 onClick = {
                     Toast.makeText(context, R.string.add_subject_details_success, Toast.LENGTH_LONG).show()
 
-//                    onUserIntent(AddStudentIntent.AddStudentSubjectDetails(editStudentState.selectedSubject))
+                    onUserIntent(EditStudentIntent.UpsertStudentSubjectDetails(editStudentState.selectedSubject))
                 }
             ) {
                 Text(

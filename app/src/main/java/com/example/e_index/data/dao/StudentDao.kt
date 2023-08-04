@@ -55,7 +55,7 @@ interface StudentDao {
 
     @Query(
         """
-        SELECT sc.categoryId, sc.points
+        SELECT sc.categoryId, sc.points, ss.subjectId, ss.schoolYearId, sc.passed
         FROM student_category sc
         INNER JOIN student_subject ss ON sc.studentId = ss.studentId AND sc.schoolYearId = ss.schoolYearId
         WHERE sc.studentId = :studentId AND ss.subjectId = :subjectId AND sc.schoolYearId = :schoolYearId
