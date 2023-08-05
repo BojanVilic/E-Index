@@ -42,6 +42,7 @@ fun AddStudentViewState.asStudentSubjectList(): List<StudentSubject> {
 fun AddStudentViewState.asStudentCategoryEntity(): List<StudentCategory> {
     return categoryPerformanceMap.values.map { categoryPerformance ->
         StudentCategory(
+            studentId = 0,
             categoryId = categoryPerformance.categoryId,
             schoolYearId = categoryPerformance.schoolYearId,
             points = categoryPerformance.earnedPoints,

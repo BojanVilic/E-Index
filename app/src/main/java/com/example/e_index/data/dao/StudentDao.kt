@@ -10,6 +10,7 @@ import com.example.e_index.data.models.entities.Student
 import com.example.e_index.data.models.entities.StudentCategory
 import com.example.e_index.data.models.entities.StudentSubject
 import com.example.e_index.data.models.response_models.StudentDetails
+import com.example.e_index.data.models.response_models.StudentInfo
 import com.example.e_index.data.models.response_models.StudentPointsByCategory
 import com.example.e_index.data.models.response_models.StudentPointsDetails
 import com.example.e_index.data.models.response_models.StudentSubjectDetails
@@ -110,5 +111,15 @@ interface StudentDao {
         """
     )
     suspend fun getAllSubjectDetailsForStudent(studentId: Long, schoolYearId: Long): List<StudentSubjectDetails>
+
+    @Query(
+        """
+        SELECT s.*, ss.mark, ss.passed
+        FROM students s
+        INNER JOIN student_subject ss ON s.id = ss.studentId
+        WHERE ss.subjectId = :subjectId AND ss.schoolYearId = :schoolYearId
+        """
+    )
+    suspend fun getStudentsForSearchParams(subjectId: Long, schoolYearId: Long): List<StudentInfo>
 }
 

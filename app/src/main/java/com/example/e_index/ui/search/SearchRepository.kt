@@ -5,6 +5,7 @@ import com.example.e_index.data.dao.SchoolYearDao
 import com.example.e_index.data.dao.StudentDao
 import com.example.e_index.data.dao.SubjectDao
 import com.example.e_index.data.models.entities.SchoolYear
+import com.example.e_index.data.models.response_models.StudentInfo
 import com.example.e_index.data.models.response_models.StudentPointsDetails
 import com.example.e_index.data.models.response_models.StudentSubjectDetails
 import javax.inject.Inject
@@ -25,5 +26,9 @@ class SearchRepository @Inject constructor(
 
     suspend fun getAllSchoolYears(): List<SchoolYear> {
         return schoolYearDao.getAllSchoolYears()
+    }
+
+    suspend fun getStudentsForSearchParams(subjectId: Long, schoolYearId: Long): List<StudentInfo> {
+        return studentDao.getStudentsForSearchParams(subjectId, schoolYearId)
     }
 }
