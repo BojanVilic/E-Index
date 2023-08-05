@@ -22,8 +22,8 @@ import androidx.room.PrimaryKey
 data class Category(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val subjectId: Long,
-    val schoolYearId: Long,
+    val subjectId: Long = -1,
+    val schoolYearId: Long = -1,
     val name: String,
     val maxPoints: Int,
     val minPoints: Int

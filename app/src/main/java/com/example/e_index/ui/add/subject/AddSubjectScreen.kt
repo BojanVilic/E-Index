@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 
-package com.example.e_index.ui.add.screens
+package com.example.e_index.ui.add.subject
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -38,9 +38,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.e_index.R
-import com.example.e_index.ui.add.subject.AddSubjectIntent
-import com.example.e_index.ui.add.subject.AddSubjectViewModel
-import com.example.e_index.ui.add.subject.AddSubjectViewState
 import com.example.e_index.ui.add.uimodels.CategoryUi
 import com.example.e_index.ui.add.uimodels.asEntity
 import com.example.e_index.ui.theme.EIndexTheme

@@ -19,7 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.e_index.R
-import com.example.e_index.ui.add.screens.CategoryChip
+import com.example.e_index.ui.add.subject.CategoryChip
 import com.example.e_index.ui.theme.EIndexTheme
 import com.example.e_index.util.DropdownSelectionMenu
 

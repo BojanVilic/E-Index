@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.e_index.ui.add.screens
+package com.example.e_index.ui.add.subject
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column

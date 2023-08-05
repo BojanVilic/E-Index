@@ -12,8 +12,6 @@ data class CategoryUi(
 
 fun CategoryUi.asEntity(): Category {
     return Category(
-        subjectId = 0,
-        schoolYearId = 0,
         name = name.value,
         minPoints = if (minPoints.value.isBlank()) 0 else minPoints.value.toInt(),
         maxPoints = if (maxPoints.value.isBlank()) 0 else maxPoints.value.toInt()

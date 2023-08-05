@@ -15,10 +15,10 @@ import com.example.e_index.ui.add.edit_student.EditSubjectDetailsEntryScreen
 import com.example.e_index.ui.add.screens.AddAdminScreen
 import com.example.e_index.ui.add.screens.AddSchoolYearScreen
 import com.example.e_index.ui.add.screens.AddScreen
-import com.example.e_index.ui.add.screens.AddStudentScreen
-import com.example.e_index.ui.add.screens.AddSubjectScreen
-import com.example.e_index.ui.add.screens.DeleteStudentsScreen
-import com.example.e_index.ui.add.screens.SubjectDetailsEntryScreen
+import com.example.e_index.ui.add.student.AddStudentScreen
+import com.example.e_index.ui.add.subject.AddSubjectScreen
+import com.example.e_index.ui.add.delete_student.DeleteStudentsScreen
+import com.example.e_index.ui.add.subject.SubjectDetailsEntryScreen
 import com.example.e_index.ui.add.student.AddStudentViewModel
 
 private const val ADD_SCHOOL_YEAR = "add_school_year"

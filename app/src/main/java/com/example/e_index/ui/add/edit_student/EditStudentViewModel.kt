@@ -32,7 +32,7 @@ class EditStudentViewModel @Inject constructor(
                 _editStudentState.update { it.copy(selectedStudent = intent.student) }
                 getSubjectsForStudent()
             }
-            is EditStudentIntent.EditStudentCategoryPointsClicked -> loadSubjectDetails(intent.subjectId)
+            is EditStudentIntent.EditStudentCategoryPointsClicked -> getSubjectDetails(intent.subjectId)
             is EditStudentIntent.CategoryPointsChanged -> {
                 val updatedCategoryPerformanceMap = _editStudentState.value.categoryPerformanceMap.toMutableMap()
                 updatedCategoryPerformanceMap[intent.categoryPerformance.categoryId] = intent.categoryPerformance
@@ -87,7 +87,7 @@ class EditStudentViewModel @Inject constructor(
         }
     }
 
-    private fun loadSubjectDetails(subjectId: Long) {
+    private fun getSubjectDetails(subjectId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val selectedSubjectDetails = subjectDetailsList.find { subjectDetails -> subjectDetails.subject.id == subjectId }!!
 

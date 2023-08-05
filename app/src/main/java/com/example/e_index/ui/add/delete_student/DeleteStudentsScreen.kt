@@ -1,4 +1,4 @@
-package com.example.e_index.ui.add.screens
+package com.example.e_index.ui.add.delete_student
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.e_index.R
 import com.example.e_index.data.models.entities.Student
-import com.example.e_index.ui.add.delete_student.DeleteStudentViewModel
 import com.example.e_index.ui.theme.EIndexTheme
 import com.example.e_index.util.DropdownSelectionMenu
 

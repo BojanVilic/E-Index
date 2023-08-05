@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.e_index.ui.add.screens
+package com.example.e_index.ui.add.student
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,9 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.e_index.R
-import com.example.e_index.ui.add.student.AddStudentIntent
-import com.example.e_index.ui.add.student.AddStudentViewModel
-import com.example.e_index.ui.add.student.AddStudentViewState
 import com.example.e_index.ui.theme.EIndexTheme
 
 @Composable

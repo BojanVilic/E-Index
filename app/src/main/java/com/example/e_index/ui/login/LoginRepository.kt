@@ -44,12 +44,14 @@ class LoginRepository @Inject constructor(
         ) {
             _loginStatus.emit(Result.success(UserRole.ADMIN))
             currentSessionRole = UserRole.ADMIN
+            TopLevelDestinations.Add.visible = true
             Result.success(Admin(username = "admin", password = "admin"))
         } else {
             val admin = adminDao.getAdminByUsernameAndPassword(username, password)
             if (admin != null) {
                 _loginStatus.emit(Result.success(UserRole.ADMIN))
                 currentSessionRole = UserRole.ADMIN
+                TopLevelDestinations.Add.visible = true
             } else {
                 _loginStatus.emit(Result.failure(Throwable("Pogrešno korisničko ime ili lozinka")))
             }
