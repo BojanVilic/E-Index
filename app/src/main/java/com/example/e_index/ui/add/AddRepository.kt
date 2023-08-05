@@ -102,7 +102,7 @@ class AddRepository @Inject constructor(
         return studentDao.getStudentPointsByCategoryForSubject(studentId, subjectId, schoolYearId)
     }
 
-    suspend fun getAllStudentPointsByCategory(studentId: Long): List<StudentPointsByCategory> {
+    fun getAllStudentPointsByCategory(studentId: Long): Flow<List<StudentPointsByCategory>> {
         return studentDao.getAllStudentPointsByCategory(studentId)
     }
 }

@@ -77,7 +77,7 @@ interface StudentDao {
         WHERE sc.studentId = :studentId
         """
     )
-    suspend fun getAllStudentPointsByCategory(studentId: Long): List<StudentPointsByCategory>
+    fun getAllStudentPointsByCategory(studentId: Long): Flow<List<StudentPointsByCategory>>
 
     @Query(
         """
