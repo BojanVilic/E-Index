@@ -92,7 +92,7 @@ private fun AdminSubjectSearchContent(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(stringResource(id = R.string.show_passed_only))
+                Text(stringResource(id = R.string.show_passed_only_students))
                 Switch(
                     checked = viewState.passedOnlyFilter,
                     onCheckedChange = {

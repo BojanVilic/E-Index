@@ -8,6 +8,7 @@ import com.example.e_index.data.models.entities.SchoolYear
 import com.example.e_index.data.models.response_models.StudentInfo
 import com.example.e_index.data.models.response_models.StudentPointsDetails
 import com.example.e_index.data.models.response_models.StudentSubjectDetails
+import com.example.e_index.data.models.response_models.StudentSubjectStatus
 import javax.inject.Inject
 
 class SearchRepository @Inject constructor(
@@ -30,5 +31,9 @@ class SearchRepository @Inject constructor(
 
     suspend fun getStudentsForSearchParams(subjectId: Long, schoolYearId: Long): List<StudentInfo> {
         return studentDao.getStudentsForSearchParams(subjectId, schoolYearId)
+    }
+
+    suspend fun getPassedAndFailedSubjectsForStudent(studentId: Long): List<StudentSubjectStatus> {
+        return studentDao.getPassedAndFailedSubjectsForStudent(studentId)
     }
 }

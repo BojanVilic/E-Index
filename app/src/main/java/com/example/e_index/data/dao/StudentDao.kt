@@ -14,6 +14,7 @@ import com.example.e_index.data.models.response_models.StudentInfo
 import com.example.e_index.data.models.response_models.StudentPointsByCategory
 import com.example.e_index.data.models.response_models.StudentPointsDetails
 import com.example.e_index.data.models.response_models.StudentSubjectDetails
+import com.example.e_index.data.models.response_models.StudentSubjectStatus
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -121,5 +122,16 @@ interface StudentDao {
         """
     )
     suspend fun getStudentsForSearchParams(subjectId: Long, schoolYearId: Long): List<StudentInfo>
+
+    @Query(
+        """
+        SELECT ss.subjectId, s.name AS subjectName, ss.schoolYearId, sy.name AS schoolYearName, ss.passed
+        FROM student_subject ss
+        INNER JOIN subjects s ON ss.subjectId = s.id
+        INNER JOIN school_years sy ON ss.schoolYearId = sy.id
+        WHERE ss.studentId = :studentId
+        """
+    )
+    suspend fun getPassedAndFailedSubjectsForStudent(studentId: Long): List<StudentSubjectStatus>
 }
 

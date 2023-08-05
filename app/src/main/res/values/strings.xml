@@ -41,6 +41,8 @@
     <string name="search_student_points_for_subjects">Pregled bodovnog stanja po predmetima</string>
     <string name="search_student_passed_subjects">Pretraži položene i nepoložene predmete</string>
     <string name="label_min_mark">Minimalna ocena (5–10)</string>
-    <string name="show_passed_only">Prikaži samo studente sa\npoloženim predmetom:</string>
+    <string name="show_passed_only_students">Prikaži samo studente sa\npoloženim predmetom:</string>
+    <string name="show_passed_only_subjects">Prikaži samo položene predmete:</string>
+    <string name="show_failed_only_subjects">Prikaži samo nepoložene predmete:</string>
     <string name="label_no_search_result">Nema rezultata za ovu pretragu.</string>
 </resources>

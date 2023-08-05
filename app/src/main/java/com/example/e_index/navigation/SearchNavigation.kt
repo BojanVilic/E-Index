@@ -4,6 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.example.e_index.ui.search.SearchScreen
+import com.example.e_index.ui.search.admin_search.students.AdminStudentSearchScreen
 import com.example.e_index.ui.search.admin_search.subjects.AdminSubjectSearchScreen
 import com.example.e_index.ui.search.searchOptionNavigationMap
 import com.example.e_index.ui.search.student_search.StudentPointsBySubjectScreen
@@ -31,5 +32,8 @@ fun NavGraphBuilder.searchScreen(navController: NavHostController) {
     }
     composable(SEARCH_STUDENTS) {
         AdminSubjectSearchScreen()
+    }
+    composable(SEARCH_STUDENT_SUBJECT_INFO) {
+        AdminStudentSearchScreen()
     }
 }

@@ -9,6 +9,7 @@ import com.example.e_index.ui.add.subject.AddSubjectViewModel
 import com.example.e_index.ui.login.LoginRepository
 import com.example.e_index.ui.login.LoginViewModel
 import com.example.e_index.ui.search.SearchRepository
+import com.example.e_index.ui.search.admin_search.students.AdminStudentSearchViewModel
 import com.example.e_index.ui.search.admin_search.subjects.AdminSubjectSearchViewModel
 import dagger.Module
 import dagger.Provides
@@ -79,6 +80,17 @@ object ViewModelModule {
         addRepository: AddRepository
     ): AdminSubjectSearchViewModel {
         return AdminSubjectSearchViewModel(
+            searchRepository,
+            addRepository
+        )
+    }
+
+    @Provides
+    fun getAdminStudentSearchViewModel(
+        searchRepository: SearchRepository,
+        addRepository: AddRepository
+    ): AdminStudentSearchViewModel {
+        return AdminStudentSearchViewModel(
             searchRepository,
             addRepository
         )
