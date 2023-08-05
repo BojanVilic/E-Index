@@ -8,6 +8,7 @@ import com.example.e_index.data.UserRole
 import com.example.e_index.data.dao.AdminDao
 import com.example.e_index.data.dao.StudentDao
 import com.example.e_index.data.models.entities.Admin
+import com.example.e_index.navigation.TopLevelDestinations
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -61,6 +62,7 @@ class LoginRepository @Inject constructor(
             _loginStatus.emit(Result.success(UserRole.STUDENT))
             currentSessionRole = UserRole.STUDENT
             currentStudentId = student.id
+            TopLevelDestinations.Add.visible = false
         } else {
             _loginStatus.emit(Result.failure(Throwable("Pogrešno korisničko ime ili lozinka")))
         }

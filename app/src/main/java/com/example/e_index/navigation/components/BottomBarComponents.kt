@@ -51,12 +51,14 @@ fun TabRow(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             allScreens.forEach { screen ->
-                Tab(
-                    titleRes = screen.title,
-                    iconRes = screen.icon,
-                    onSelected = { onTabSelected(screen) },
-                    selected = currentScreen == screen
-                )
+                if (screen.visible) {
+                    Tab(
+                        titleRes = screen.title,
+                        iconRes = screen.icon,
+                        onSelected = { onTabSelected(screen) },
+                        selected = currentScreen == screen
+                    )
+                }
             }
         }
     }

@@ -2,15 +2,13 @@ package com.example.e_index.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import com.example.e_index.R
 
 enum class TopLevelDestinations(
     @DrawableRes val icon: Int,
     @StringRes val title: Int,
     val route: String,
-    visible: MutableState<Boolean> = mutableStateOf(true)
+    var visible: Boolean = true
 ) {
     Search(
         icon = R.drawable.ic_search,
