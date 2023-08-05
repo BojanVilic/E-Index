@@ -21,10 +21,10 @@ import com.example.e_index.ui.theme.EIndexTheme
 fun StudentPointsBySubjectScreen(
     studentSearchViewModel: StudentSearchViewModel = hiltViewModel()
 ) {
-    val studentPointsDetailsState by studentSearchViewModel.studentPointsDetailsState.collectAsState()
+    val studentSearchViewState by studentSearchViewModel.studentSearchViewState.collectAsState()
 
     StudentPointsBySubjectContent(
-        studentPointsDetailsState = studentPointsDetailsState
+        studentPointsDetailsState = studentSearchViewState.studentPointsDetails
     )
 }
 
@@ -32,31 +32,29 @@ fun StudentPointsBySubjectScreen(
 private fun StudentPointsBySubjectContent(
     studentPointsDetailsState: List<StudentPointsDetails>
 ) {
-    Column {
-        val groupedData = studentPointsDetailsState.groupBy { it.subjectId to it.schoolYearId }
+    val groupedData = studentPointsDetailsState.groupBy { it.subjectId to it.schoolYearId }
 
-        LazyColumn {
-            groupedData.forEach { (subjectId, schoolYearId), data ->
-                item {
+    LazyColumn {
+        groupedData.forEach { (_, _), data ->
+            item {
+                Text(
+                    modifier = Modifier.padding(16.dp),
+                    text = "${data.first().subjectName}-${data.first().schoolYearName}",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                )
+            }
+
+            items(data.size) {index ->
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
                     Text(
-                        modifier = Modifier.padding(16.dp),
-                        text = "${data.first().subjectName}-${data.first().schoolYearName}",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp,
+                        text = "- ${data[index].categoryName}: ${data[index].categoryPoints} poena",
+                        fontSize = 16.sp
                     )
-                }
-
-                items(data.size) {index ->
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    ) {
-                        Text(
-                            text = "- ${data[index].categoryName}: ${data[index].categoryPoints} points",
-                            fontSize = 16.sp
-                        )
-                    }
                 }
             }
         }

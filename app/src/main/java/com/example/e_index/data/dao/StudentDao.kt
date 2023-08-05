@@ -12,6 +12,7 @@ import com.example.e_index.data.models.entities.StudentSubject
 import com.example.e_index.data.models.response_models.StudentDetails
 import com.example.e_index.data.models.response_models.StudentPointsByCategory
 import com.example.e_index.data.models.response_models.StudentPointsDetails
+import com.example.e_index.data.models.response_models.StudentSubjectDetails
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -70,7 +71,15 @@ interface StudentDao {
 
     @Query(
         """
-        SELECT c.id AS categoryId, c.name AS categoryName, COALESCE(sc.points, 0) AS categoryPoints, ss.subjectId, s.name AS subjectName, ss.schoolYearId, sy.name AS schoolYearName, ss.passed
+        SELECT
+        c.id AS categoryId,
+        c.name AS categoryName,
+        COALESCE(sc.points, 0) AS categoryPoints,
+        ss.subjectId,
+        s.name AS subjectName,
+        ss.schoolYearId,
+        sy.name AS schoolYearName,
+        ss.passed
         FROM subjects s
         JOIN student_subject ss ON s.id = ss.subjectId
         JOIN school_years sy ON ss.schoolYearId = sy.id
@@ -79,9 +88,17 @@ interface StudentDao {
         WHERE ss.studentId = :studentId
         """
     )
-    suspend fun getStudentPointsDetailsForAllSubjects(
-        studentId: Long
-    ): List<StudentPointsDetails>
+    suspend fun getStudentPointsDetailsForAllSubjects(studentId: Long): List<StudentPointsDetails>
 
+    @Query(
+        """
+            SELECT s.name AS subjectName, sy.name AS schoolYearName, ss.mark, ss.passed
+            FROM student_subject ss
+            JOIN subjects s ON ss.subjectId = s.id
+            JOIN school_years sy ON ss.schoolYearId = sy.id
+            WHERE ss.studentId = :studentId AND ss.schoolYearId = :schoolYearId
+        """
+    )
+    suspend fun getAllSubjectDetailsForStudent(studentId: Long, schoolYearId: Long): List<StudentSubjectDetails>
 }
 

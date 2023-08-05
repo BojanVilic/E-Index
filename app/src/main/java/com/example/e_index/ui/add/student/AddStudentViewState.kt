@@ -26,7 +26,7 @@ fun AddStudentViewState.asStudentSubjectList(): List<StudentSubject> {
     return addedStudentSubjects.map { subject ->
         val relevantCategoryPerformances = categoryPerformanceMap.filterValues { it.subjectId == subject.id }
         val earnedPointsSum = relevantCategoryPerformances.values.sumOf { it.earnedPoints }
-        val passed = relevantCategoryPerformances.values.all { it.hasEarnedMinimumPoints }
+        val passed = relevantCategoryPerformances.values.all { it.hasEarnedMinimumPoints } && earnedPointsSum > 51
 
         StudentSubject(
             subjectId = subject.id,
