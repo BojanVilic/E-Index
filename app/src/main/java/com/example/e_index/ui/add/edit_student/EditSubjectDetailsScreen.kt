@@ -106,7 +106,11 @@ fun EditSubjectDetailsEntryContent(
                 onClick = {
                     Toast.makeText(context, R.string.add_subject_details_success, Toast.LENGTH_LONG).show()
 
-                    onUserIntent(EditStudentIntent.UpsertStudentSubjectDetails(editStudentState.selectedSubject))
+                    if (editStudentState.screenType == ScreenType.EDIT_SUBJECT_POINTS) {
+                        onUserIntent(EditStudentIntent.UpdateCategoryPoints)
+                    } else {
+                        onUserIntent(EditStudentIntent.InsertNewSubjectDetails(editStudentState.selectedSubject))
+                    }
                 }
             ) {
                 Text(

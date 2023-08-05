@@ -72,11 +72,10 @@ fun EditStudentSubjectContent(
         FlowRow {
             editStudentState.studentSubjects.forEach {
                 CategoryChip(
+                    id = it.id,
                     text = it.name,
-                    onChipClicked = { subjectName ->
-                        onUserIntent(EditStudentIntent.EditStudentCategoryPointsClicked(
-                            editStudentState.studentSubjects.find { subject -> subject.name == subjectName }!!.id
-                        ))
+                    onChipClicked = { id ->
+                        onUserIntent(EditStudentIntent.EditStudentCategoryPointsClicked(id))
                         onSubjectDetailsClicked()
                     }
                 )

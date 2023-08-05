@@ -63,11 +63,21 @@ interface StudentDao {
         WHERE sc.studentId = :studentId AND ss.subjectId = :subjectId AND sc.schoolYearId = :schoolYearId
         """
     )
-    suspend fun getStudentPointsByCategory(
+    suspend fun getStudentPointsByCategoryForSubject(
         studentId: Long,
         subjectId: Long,
         schoolYearId: Long
     ): List<StudentPointsByCategory>
+
+    @Query(
+        """
+        SELECT sc.categoryId, sc.points, ss.subjectId, ss.schoolYearId, sc.passed
+        FROM student_category sc
+        INNER JOIN student_subject ss ON sc.studentId = ss.studentId AND sc.schoolYearId = ss.schoolYearId
+        WHERE sc.studentId = :studentId
+        """
+    )
+    suspend fun getAllStudentPointsByCategory(studentId: Long): List<StudentPointsByCategory>
 
     @Query(
         """

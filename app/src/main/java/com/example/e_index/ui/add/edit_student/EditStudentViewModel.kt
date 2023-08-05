@@ -39,11 +39,10 @@ class EditStudentViewModel @Inject constructor(
 
                 _editStudentState.update { it.copy(categoryPerformanceMap = updatedCategoryPerformanceMap) }
             }
-            is EditStudentIntent.UpsertStudentSubjectDetails -> upsertStudentWithRelevantData(intent.subject)
+            is EditStudentIntent.InsertNewSubjectDetails -> insertNewSubject(intent.subject)
             is EditStudentIntent.AddNewSubjectClicked -> {
                 resetSubjectDetailsEntryFields()
             }
-
             is EditStudentIntent.SchoolYearChanged -> {
                 _editStudentState.update {
                     it.copy(selectedSchoolYear = intent.schoolYear)
@@ -59,6 +58,7 @@ class EditStudentViewModel @Inject constructor(
                     getCategoriesForSubjectAndSchoolYear(intent.subject.id, schoolYear.id)
                 }
             }
+            is EditStudentIntent.UpdateCategoryPoints -> updateCategoryPoints()
         }
     }
 
@@ -90,26 +90,12 @@ class EditStudentViewModel @Inject constructor(
     private fun loadSubjectDetails(subjectId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val selectedSubjectDetails = subjectDetailsList.find { subjectDetails -> subjectDetails.subject.id == subjectId }!!
-            val studentPointsByCategory = addRepository.getStudentPointsByCategory(
-                _editStudentState.value.selectedStudent!!.id,
-                subjectId,
-                selectedSubjectDetails.schoolYear.id
-            )
-
-            val categoryPerformanceMap = studentPointsByCategory.associate { it.categoryId to CategoryPerformance(
-                categoryId = it.categoryId,
-                subjectId = it.subjectId,
-                schoolYearId = it.schoolYearId,
-                earnedPoints = it.points,
-                hasEarnedMinimumPoints = it.passed
-            )}
 
             _editStudentState.update {
                 it.copy(
                     categories = selectedSubjectDetails.categories,
                     selectedSchoolYear = selectedSubjectDetails.schoolYear,
                     selectedSubject = selectedSubjectDetails.subject,
-                    categoryPerformanceMap = categoryPerformanceMap,
                     screenType = ScreenType.EDIT_SUBJECT_POINTS
                 )
             }
@@ -120,18 +106,60 @@ class EditStudentViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _editStudentState.value.selectedStudent?.id?.let { studentId ->
                 subjectDetailsList = addRepository.getSubjectDetails(studentId)
-                _editStudentState.update { it.copy(studentSubjects = subjectDetailsList.map { subjectDetails -> subjectDetails.subject }) }
+
+                val studentPointsByCategoryForAllSubjects = addRepository.getAllStudentPointsByCategory(studentId = studentId)
+                val categoryPerformanceMap = mutableMapOf<Long, CategoryPerformance>()
+
+                studentPointsByCategoryForAllSubjects.forEach { studentPoints ->
+                    categoryPerformanceMap[studentPoints.categoryId] = CategoryPerformance(
+                        categoryId = studentPoints.categoryId,
+                        subjectId = studentPoints.subjectId,
+                        schoolYearId = studentPoints.schoolYearId,
+                        earnedPoints = studentPoints.points,
+                        hasEarnedMinimumPoints = studentPoints.passed
+                    )
+                }
+
+                _editStudentState.update { it.copy(
+                    studentSubjects = subjectDetailsList.map { subjectDetails -> subjectDetails.subject },
+                    categoryPerformanceMap = categoryPerformanceMap
+                ) }
             }
         }
     }
 
-    private fun upsertStudentWithRelevantData(subject: Subject) {
-        _editStudentState.update {
-            it.copy(
-                studentSubjects = it.studentSubjects + subject
+    private fun insertNewSubject(subject: Subject) {
+        val categoryDefaultValuesMap = _editStudentState.value.categories.associate { category ->
+            category.id to CategoryPerformance(
+                categoryId = category.id,
+                subjectId = category.subjectId,
+                schoolYearId = subject.schoolYearId,
+                earnedPoints = 0,
+                hasEarnedMinimumPoints = false
             )
         }
 
+        val updatedCategoryPerformanceMap =  categoryDefaultValuesMap + _editStudentState.value.categoryPerformanceMap
+
+        _editStudentState.update {
+            it.copy(
+                studentSubjects = it.studentSubjects + subject,
+                categoryPerformanceMap = updatedCategoryPerformanceMap
+            )
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val student = _editStudentState.value.selectedStudent!!
+
+            addRepository.insertStudentWithRelevantData(
+                student = student,
+                studentSubjectList = _editStudentState.value.asStudentSubjectList(),
+                studentCategoryList = _editStudentState.value.asStudentCategoryEntity()
+            )
+        }
+    }
+
+    private fun updateCategoryPoints() {
         viewModelScope.launch(Dispatchers.IO) {
             val student = _editStudentState.value.selectedStudent!!
 

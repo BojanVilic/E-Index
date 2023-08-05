@@ -38,10 +38,10 @@ fun EditStudentViewState.asStudentSubjectList(): List<StudentSubject> {
     }
 }
 
-
 fun EditStudentViewState.asStudentCategoryEntity(): List<StudentCategory> {
     return categoryPerformanceMap.values.map { categoryPerformance ->
         StudentCategory(
+            studentId = selectedStudent?.id?: 0,
             categoryId = categoryPerformance.categoryId,
             schoolYearId = categoryPerformance.schoolYearId,
             points = categoryPerformance.earnedPoints,

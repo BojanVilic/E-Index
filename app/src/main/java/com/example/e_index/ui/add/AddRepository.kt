@@ -9,10 +9,10 @@ import com.example.e_index.data.models.entities.Category
 import com.example.e_index.data.models.entities.SchoolYear
 import com.example.e_index.data.models.entities.Student
 import com.example.e_index.data.models.entities.StudentCategory
-import com.example.e_index.data.models.response_models.StudentDetails
-import com.example.e_index.data.models.response_models.StudentPointsByCategory
 import com.example.e_index.data.models.entities.StudentSubject
 import com.example.e_index.data.models.entities.Subject
+import com.example.e_index.data.models.response_models.StudentDetails
+import com.example.e_index.data.models.response_models.StudentPointsByCategory
 import com.example.e_index.data.models.response_models.SubjectDetails
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -73,6 +73,10 @@ class AddRepository @Inject constructor(
         )
     }
 
+    suspend fun insertStudentCategory(studentCategories: List<StudentCategory>) {
+        studentDao.insertStudentCategories(studentCategories)
+    }
+
     suspend fun deleteStudent(student: Student) {
         studentDao.deleteStudent(student)
     }
@@ -90,11 +94,15 @@ class AddRepository @Inject constructor(
         return studentDao.getStudentDetails(studentId)
     }
 
-    suspend fun getStudentPointsByCategory(
+    suspend fun getStudentPointsByCategoryForSubject(
         studentId: Long,
         subjectId: Long,
         schoolYearId: Long
     ): List<StudentPointsByCategory> {
-        return studentDao.getStudentPointsByCategory(studentId, subjectId, schoolYearId)
+        return studentDao.getStudentPointsByCategoryForSubject(studentId, subjectId, schoolYearId)
+    }
+
+    suspend fun getAllStudentPointsByCategory(studentId: Long): List<StudentPointsByCategory> {
+        return studentDao.getAllStudentPointsByCategory(studentId)
     }
 }

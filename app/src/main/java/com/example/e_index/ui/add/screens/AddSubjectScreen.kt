@@ -115,7 +115,7 @@ fun AddSubjectContent(
 
             FlowRow {
                 addSubjectState.categories.forEach {
-                    CategoryChip(it.name)
+                    CategoryChip(text = it.name)
                 }
             }
 
@@ -213,17 +213,18 @@ fun AddSubjectContent(
 
 @Composable
 fun CategoryChip(
+    id: Long = -1,
     text: String,
     fontWeight: FontWeight = FontWeight.Normal,
     borderWidth: Int = 1,
-    onChipClicked: (String) -> Unit = {}
+    onChipClicked: (Long) -> Unit = {}
 ) {
     Box(
         modifier = Modifier
             .padding(horizontal = 4.dp, vertical = 4.dp)
             .border(width = borderWidth.dp, color = Color.Gray, shape = RoundedCornerShape(8.dp))
             .clickable {
-                onChipClicked(text)
+                onChipClicked(id)
             }
     ) {
         Text(
