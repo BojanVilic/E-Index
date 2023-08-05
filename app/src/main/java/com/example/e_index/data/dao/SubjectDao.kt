@@ -9,6 +9,7 @@ import com.example.e_index.data.models.entities.Category
 import com.example.e_index.data.models.entities.StudentCategory
 import com.example.e_index.data.models.entities.Subject
 import com.example.e_index.data.models.response_models.SubjectDetails
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SubjectDao {
@@ -44,5 +45,5 @@ interface SubjectDao {
 
     @Transaction
     @Query("SELECT * FROM subjects WHERE id IN (SELECT subjectId FROM student_subject WHERE studentId = :studentId)")
-    suspend fun getSubjectDetails(studentId: Long): List<SubjectDetails>
+    fun getSubjectDetails(studentId: Long): Flow<List<SubjectDetails>>
 }

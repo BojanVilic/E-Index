@@ -30,7 +30,7 @@ class EditStudentViewModel @Inject constructor(
         when (intent) {
             is EditStudentIntent.StudentChanged -> {
                 _editStudentState.update { it.copy(selectedStudent = intent.student) }
-                getSubjectDetails()
+                getSubjectsForStudent()
             }
             is EditStudentIntent.EditStudentCategoryPointsClicked -> loadSubjectDetails(intent.subjectId)
             is EditStudentIntent.CategoryPointsChanged -> {
@@ -102,28 +102,30 @@ class EditStudentViewModel @Inject constructor(
         }
     }
 
-    private fun getSubjectDetails() {
+    private fun getSubjectsForStudent() {
         viewModelScope.launch(Dispatchers.IO) {
             _editStudentState.value.selectedStudent?.id?.let { studentId ->
-                subjectDetailsList = addRepository.getSubjectDetails(studentId)
+                addRepository.getSubjectDetails(studentId).collect { subjectsList ->
+                    subjectDetailsList = subjectsList
 
-                val studentPointsByCategoryForAllSubjects = addRepository.getAllStudentPointsByCategory(studentId = studentId)
-                val categoryPerformanceMap = mutableMapOf<Long, CategoryPerformance>()
+                    val studentPointsByCategoryForAllSubjects = addRepository.getAllStudentPointsByCategory(studentId = studentId)
+                    val categoryPerformanceMap = mutableMapOf<Long, CategoryPerformance>()
 
-                studentPointsByCategoryForAllSubjects.forEach { studentPoints ->
-                    categoryPerformanceMap[studentPoints.categoryId] = CategoryPerformance(
-                        categoryId = studentPoints.categoryId,
-                        subjectId = studentPoints.subjectId,
-                        schoolYearId = studentPoints.schoolYearId,
-                        earnedPoints = studentPoints.points,
-                        hasEarnedMinimumPoints = studentPoints.passed
-                    )
+                    studentPointsByCategoryForAllSubjects.forEach { studentPoints ->
+                        categoryPerformanceMap[studentPoints.categoryId] = CategoryPerformance(
+                            categoryId = studentPoints.categoryId,
+                            subjectId = studentPoints.subjectId,
+                            schoolYearId = studentPoints.schoolYearId,
+                            earnedPoints = studentPoints.points,
+                            hasEarnedMinimumPoints = studentPoints.passed
+                        )
+                    }
+
+                    _editStudentState.update { it.copy(
+                        studentSubjects = subjectDetailsList.map { subjectDetails -> subjectDetails.subject },
+                        categoryPerformanceMap = categoryPerformanceMap
+                    )}
                 }
-
-                _editStudentState.update { it.copy(
-                    studentSubjects = subjectDetailsList.map { subjectDetails -> subjectDetails.subject },
-                    categoryPerformanceMap = categoryPerformanceMap
-                ) }
             }
         }
     }

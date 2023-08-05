@@ -86,7 +86,7 @@ class AddRepository @Inject constructor(
         return studentDao.getAllStudents()
     }
 
-    suspend fun getSubjectDetails(studentId: Long): List<SubjectDetails> {
+    fun getSubjectDetails(studentId: Long): Flow<List<SubjectDetails>> {
         return subjectDao.getSubjectDetails(studentId)
     }
 
