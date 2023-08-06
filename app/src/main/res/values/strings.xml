@@ -55,4 +55,6 @@
     <string name="error_category_points_sum">Ukupni broj poena mora biti tačno 100!</string>
     <string name="error_all_fields_must_be_populated">Sva polja moraju biti popunjena!</string>
     <string name="label_user_type">Tip korisnika</string>
+    <string name="label_login">Prijavite se</string>
+    <string name="label_main_login_title">e-index prijava</string>
 </resources>

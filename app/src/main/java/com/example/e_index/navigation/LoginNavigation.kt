@@ -7,14 +7,16 @@ import androidx.navigation.compose.composable
 import com.example.e_index.ui.login.LoginScreen
 import com.example.e_index.ui.login.LoginViewModel
 
+const val LOGIN = "login"
+
 fun NavGraphBuilder.loginScreen(navController: NavHostController) {
-    composable("login_route") {
+    composable(LOGIN) {
         val loginViewModel: LoginViewModel = hiltViewModel()
         LoginScreen(
             loginViewModel = loginViewModel,
             onLoginSuccess = {
                 navController.navigate(TopLevelDestinations.Search.route) {
-                    popUpTo("login_route") {
+                    popUpTo(LOGIN) {
                         inclusive = true
                     }
                 }

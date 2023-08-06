@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.e_index.navigation.LOGIN
 import com.example.e_index.navigation.TopLevelDestinations
 import com.example.e_index.navigation.addScreen
 import com.example.e_index.navigation.components.TabRow
@@ -64,7 +65,7 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = "login_route",
+        startDestination = LOGIN,
         modifier = modifier
     ) {
         loginScreen(navController)

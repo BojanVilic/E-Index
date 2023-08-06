@@ -2,10 +2,8 @@
 
 package com.example.e_index.ui.login
 
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
@@ -70,11 +68,12 @@ fun LoginContent(
 
     Column(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "e-index log in",
+            modifier = Modifier.padding(vertical = 16.dp),
+            text = stringResource(id = R.string.label_main_login_title),
             fontSize = 24.sp
         )
 
@@ -130,16 +129,15 @@ fun LoginContent(
 
         Button(
             modifier = Modifier
-                .padding(vertical = 16.dp)
+                .padding(top = 32.dp)
                 .width(250.dp),
             onClick = { onUserIntent(LoginIntent.LoginClicked) }) {
-            Text(text = "Log in")
+            Text(text = stringResource(id = R.string.label_login))
         }
     }
 }
 
-@Preview(uiMode = UI_MODE_NIGHT_NO)
-@Preview(uiMode = UI_MODE_NIGHT_YES)
+@Preview(showBackground = true)
 @Composable
 fun LoginContentPreview() {
     EIndexTheme {
