@@ -104,7 +104,14 @@ fun EditSubjectDetailsEntryContent(
                     .align(Alignment.CenterHorizontally)
                     .padding(vertical = 16.dp),
                 onClick = {
-                    Toast.makeText(context, R.string.add_subject_details_success, Toast.LENGTH_LONG).show()
+
+                    val successMessage =
+                        if (editStudentState.screenType == ScreenType.EDIT_SUBJECT_POINTS)
+                            R.string.update_subject_details_success
+                        else
+                            R.string.add_subject_details_success
+
+                    Toast.makeText(context, successMessage, Toast.LENGTH_LONG).show()
 
                     if (editStudentState.screenType == ScreenType.EDIT_SUBJECT_POINTS) {
                         onUserIntent(EditStudentIntent.UpdateCategoryPoints)
@@ -114,7 +121,10 @@ fun EditSubjectDetailsEntryContent(
                 }
             ) {
                 Text(
-                    text = stringResource(id = R.string.add_subject_details),
+                    text = if (editStudentState.screenType == ScreenType.EDIT_SUBJECT_POINTS)
+                        stringResource(id = R.string.update_subject_points_for_student)
+                                else
+                        stringResource(id = R.string.add_subject_details),
                     fontSize = 18.sp
                 )
             }
