@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.e_index.ui.add.screens
+package com.example.e_index.ui.add.admin_and_school_year
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.e_index.R
 import com.example.e_index.data.models.entities.SchoolYear
-import com.example.e_index.ui.add.AddViewModel
 import com.example.e_index.ui.theme.EIndexTheme
 import com.example.e_index.util.TextFieldValidator
 import kotlinx.coroutines.launch
@@ -35,7 +34,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AddSchoolYearScreen(
-    addViewModel: AddViewModel = hiltViewModel()
+    addAdminAndSchoolYearViewModel: AddAdminAndSchoolYearViewModel = hiltViewModel()
 ) {
 
     val coroutineScope = rememberCoroutineScope()
@@ -43,7 +42,7 @@ fun AddSchoolYearScreen(
     AddSchoolYearContent(
         onAddSchoolYear = { schoolYear ->
             coroutineScope.launch {
-                addViewModel.insertSchoolYear(SchoolYear(name = schoolYear))
+                addAdminAndSchoolYearViewModel.insertSchoolYear(SchoolYear(name = schoolYear))
             }
         }
     )

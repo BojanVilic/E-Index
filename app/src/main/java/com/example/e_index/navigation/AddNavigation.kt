@@ -12,9 +12,9 @@ import androidx.navigation.navigation
 import com.example.e_index.ui.add.edit_student.EditStudentSubjectScreen
 import com.example.e_index.ui.add.edit_student.EditStudentViewModel
 import com.example.e_index.ui.add.edit_student.EditSubjectDetailsEntryScreen
-import com.example.e_index.ui.add.screens.AddAdminScreen
-import com.example.e_index.ui.add.screens.AddSchoolYearScreen
-import com.example.e_index.ui.add.screens.AddScreen
+import com.example.e_index.ui.add.admin_and_school_year.AddAdminScreen
+import com.example.e_index.ui.add.admin_and_school_year.AddSchoolYearScreen
+import com.example.e_index.ui.add.AddScreen
 import com.example.e_index.ui.add.student.AddStudentScreen
 import com.example.e_index.ui.add.subject.AddSubjectScreen
 import com.example.e_index.ui.add.delete_student.DeleteStudentsScreen

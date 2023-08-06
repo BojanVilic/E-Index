@@ -1,4 +1,4 @@
-package com.example.e_index.ui.add.uimodels
+package com.example.e_index.ui.add.admin_and_school_year
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf

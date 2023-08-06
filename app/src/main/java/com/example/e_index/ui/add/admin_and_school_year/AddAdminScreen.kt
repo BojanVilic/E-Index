@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.e_index.ui.add.screens
+package com.example.e_index.ui.add.admin_and_school_year
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
@@ -25,15 +25,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.e_index.R
-import com.example.e_index.ui.add.AddViewModel
-import com.example.e_index.ui.add.uimodels.AdminUi
-import com.example.e_index.ui.add.uimodels.fieldsValid
 import com.example.e_index.ui.theme.EIndexTheme
 import kotlinx.coroutines.launch
 
 @Composable
 fun AddAdminScreen(
-    addViewModel: AddViewModel = hiltViewModel()
+    addAdminAndSchoolYearViewModel: AddAdminAndSchoolYearViewModel = hiltViewModel()
 ) {
 
     val coroutineScope = rememberCoroutineScope()
@@ -41,7 +38,7 @@ fun AddAdminScreen(
     AddAdminContent(
         onAddAdmin = { adminUi ->
             coroutineScope.launch {
-                addViewModel.insertAdmin(adminUi)
+                addAdminAndSchoolYearViewModel.insertAdmin(adminUi)
             }
         }
     )

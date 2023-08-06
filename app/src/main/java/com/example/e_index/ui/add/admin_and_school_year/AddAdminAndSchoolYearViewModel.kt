@@ -1,14 +1,13 @@
-package com.example.e_index.ui.add
+package com.example.e_index.ui.add.admin_and_school_year
 
 import androidx.lifecycle.ViewModel
 import com.example.e_index.data.models.entities.SchoolYear
-import com.example.e_index.ui.add.uimodels.AdminUi
-import com.example.e_index.ui.add.uimodels.asEntity
+import com.example.e_index.ui.add.AddRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AddViewModel @Inject constructor(
+class AddAdminAndSchoolYearViewModel @Inject constructor(
     private val addRepository: AddRepository
 ): ViewModel() {
 
@@ -19,5 +18,4 @@ class AddViewModel @Inject constructor(
     suspend fun insertAdmin(adminUi: AdminUi) {
         addRepository.insertAdmin(adminUi.asEntity())
     }
-
 }

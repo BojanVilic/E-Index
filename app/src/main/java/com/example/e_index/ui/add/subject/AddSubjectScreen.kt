@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.e_index.R
-import com.example.e_index.ui.add.uimodels.asEntity
+import com.example.e_index.ui.add.admin_and_school_year.asEntity
 import com.example.e_index.ui.theme.EIndexTheme
 import com.example.e_index.util.DropdownSelectionMenu
 import kotlinx.coroutines.launch

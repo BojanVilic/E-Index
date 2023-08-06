@@ -2,7 +2,6 @@ package com.example.e_index.ui.add.subject
 
 import com.example.e_index.data.models.entities.Category
 import com.example.e_index.data.models.entities.SchoolYear
-import com.example.e_index.ui.add.uimodels.CategoryUi
 
 data class AddSubjectViewState(
     val subjectName: String = "",

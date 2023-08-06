@@ -1,7 +1,7 @@
 package com.example.e_index.di
 
 import com.example.e_index.ui.add.AddRepository
-import com.example.e_index.ui.add.AddViewModel
+import com.example.e_index.ui.add.admin_and_school_year.AddAdminAndSchoolYearViewModel
 import com.example.e_index.ui.add.delete_student.DeleteStudentViewModel
 import com.example.e_index.ui.add.edit_student.EditStudentViewModel
 import com.example.e_index.ui.add.student.AddStudentViewModel
@@ -33,8 +33,8 @@ object ViewModelModule {
     @Provides
     fun getAddViewModel(
         addRepository: AddRepository
-    ): AddViewModel {
-        return AddViewModel(
+    ): AddAdminAndSchoolYearViewModel {
+        return AddAdminAndSchoolYearViewModel(
             addRepository
         )
     }

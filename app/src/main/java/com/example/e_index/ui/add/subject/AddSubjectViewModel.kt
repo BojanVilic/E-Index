@@ -3,7 +3,6 @@ package com.example.e_index.ui.add.subject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.e_index.ui.add.AddRepository
-import com.example.e_index.ui.add.uimodels.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

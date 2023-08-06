@@ -1,4 +1,4 @@
-package com.example.e_index.ui.add.screens
+package com.example.e_index.ui.add
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
