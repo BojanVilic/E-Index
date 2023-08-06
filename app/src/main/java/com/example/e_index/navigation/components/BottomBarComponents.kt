@@ -74,17 +74,17 @@ private fun Tab(
 ) {
 
     val color = MaterialTheme.colorScheme.onBackground
-    val durationMillis = if (selected) TabFadeInAnimationDuration else TabFadeOutAnimationDuration
+    val durationMillis = if (selected) TAB_FADE_IN_ANIMATION_DURATION else TAB_FADE_OUT_ANIMATION_DURATION
     val animSpec = remember {
         tween<Color>(
             durationMillis = durationMillis,
             easing = LinearEasing,
-            delayMillis = TabFadeInAnimationDelay
+            delayMillis = TAB_FADE_IN_ANIMATION_DELAY
         )
     }
 
     val tabTintColor by animateColorAsState(
-        targetValue = if (selected) color else color.copy(alpha = InactiveTabOpacity),
+        targetValue = if (selected) color else color.copy(alpha = INACTIVE_TAB_OPACITY),
         animationSpec = animSpec, label = ""
     )
 
@@ -117,7 +117,7 @@ fun TabRowPreview() {
     }
 }
 
-private const val InactiveTabOpacity = 0.60f
-private const val TabFadeInAnimationDuration = 150
-private const val TabFadeInAnimationDelay = 200
-private const val TabFadeOutAnimationDuration = 100
+private const val INACTIVE_TAB_OPACITY = 0.60f
+private const val TAB_FADE_IN_ANIMATION_DURATION = 150
+private const val TAB_FADE_IN_ANIMATION_DELAY = 200
+private const val TAB_FADE_OUT_ANIMATION_DURATION = 100

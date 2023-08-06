@@ -125,7 +125,7 @@ fun LoginContent(
             onValueChange = {
                 onUserIntent(LoginIntent.RoleChanged(UserRole.stringToUserRole(it)))
             },
-            label = "Tip korisnika"
+            label = stringResource(id = R.string.label_user_type)
         )
 
         Button(

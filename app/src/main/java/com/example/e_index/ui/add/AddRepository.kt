@@ -11,7 +11,6 @@ import com.example.e_index.data.models.entities.Student
 import com.example.e_index.data.models.entities.StudentCategory
 import com.example.e_index.data.models.entities.StudentSubject
 import com.example.e_index.data.models.entities.Subject
-import com.example.e_index.data.models.response_models.StudentDetails
 import com.example.e_index.data.models.response_models.StudentPointsByCategory
 import com.example.e_index.data.models.response_models.SubjectDetails
 import kotlinx.coroutines.flow.Flow
@@ -73,10 +72,6 @@ class AddRepository @Inject constructor(
         )
     }
 
-    suspend fun insertStudentCategory(studentCategories: List<StudentCategory>) {
-        studentDao.insertStudentCategories(studentCategories)
-    }
-
     suspend fun deleteStudent(student: Student) {
         studentDao.deleteStudent(student)
     }
@@ -88,18 +83,6 @@ class AddRepository @Inject constructor(
 
     fun getSubjectDetails(studentId: Long): Flow<List<SubjectDetails>> {
         return subjectDao.getSubjectDetails(studentId)
-    }
-
-    suspend fun getStudentDetails(studentId: Long): List<StudentDetails> {
-        return studentDao.getStudentDetails(studentId)
-    }
-
-    suspend fun getStudentPointsByCategoryForSubject(
-        studentId: Long,
-        subjectId: Long,
-        schoolYearId: Long
-    ): List<StudentPointsByCategory> {
-        return studentDao.getStudentPointsByCategoryForSubject(studentId, subjectId, schoolYearId)
     }
 
     fun getAllStudentPointsByCategory(studentId: Long): Flow<List<StudentPointsByCategory>> {

@@ -9,7 +9,6 @@ import androidx.room.Transaction
 import com.example.e_index.data.models.entities.Student
 import com.example.e_index.data.models.entities.StudentCategory
 import com.example.e_index.data.models.entities.StudentSubject
-import com.example.e_index.data.models.response_models.StudentDetails
 import com.example.e_index.data.models.response_models.StudentInfo
 import com.example.e_index.data.models.response_models.StudentPointsByCategory
 import com.example.e_index.data.models.response_models.StudentPointsDetails
@@ -52,24 +51,6 @@ interface StudentDao {
 
     @Query("SELECT * FROM students")
     fun getAllStudents(): Flow<List<Student>>
-
-    @Transaction
-    @Query("SELECT * FROM students WHERE id IN (SELECT studentId FROM student_subject WHERE studentId = :studentId)")
-    suspend fun getStudentDetails(studentId: Long): List<StudentDetails>
-
-    @Query(
-        """
-        SELECT sc.categoryId, sc.points, ss.subjectId, ss.schoolYearId, sc.passed
-        FROM student_category sc
-        INNER JOIN student_subject ss ON sc.studentId = ss.studentId AND sc.schoolYearId = ss.schoolYearId
-        WHERE sc.studentId = :studentId AND ss.subjectId = :subjectId AND sc.schoolYearId = :schoolYearId
-        """
-    )
-    suspend fun getStudentPointsByCategoryForSubject(
-        studentId: Long,
-        subjectId: Long,
-        schoolYearId: Long
-    ): List<StudentPointsByCategory>
 
     @Query(
         """

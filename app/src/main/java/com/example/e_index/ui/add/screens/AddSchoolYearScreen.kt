@@ -122,17 +122,17 @@ fun YearFormatTextField(
 
             onTextChanged(input, isValidFormat && areYearsOneYearApart)
         },
-        label = { Text("Enter year range (xxxx/xxxx)") },
+        label = { Text(stringResource(id = R.string.label_enter_school_year_in_format)) },
         isError = !isValidFormat || !areYearsOneYearApart,
         supportingText = {
             if (!isValidFormat) {
                 Text(
-                    text = "Invalid year format. Please use xxxx/xxxx format.",
+                    text = stringResource(id = R.string.error_school_year_wrong_format),
                     color = MaterialTheme.colorScheme.error
                 )
             } else if (!areYearsOneYearApart) {
                 Text(
-                    text = "The years should be one year apart.",
+                    text = stringResource(id = R.string.error_school_year_one_apart),
                     color = MaterialTheme.colorScheme.error
                 )
             }

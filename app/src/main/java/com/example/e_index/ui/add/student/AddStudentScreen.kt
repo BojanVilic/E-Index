@@ -176,7 +176,7 @@ fun AddStudentContent(
         if (addStudentState.addedStudentSubjects.isNotEmpty()) {
             Text(
                 modifier = Modifier.padding(top = 16.dp),
-                text = "Dodeljeni predmeni: ${addStudentState.addedStudentSubjects.joinToString { it.name }}",
+                text = "Dodeljeni predmeti: ${addStudentState.addedStudentSubjects.joinToString { it.name }}",
                 fontSize = 18.sp
             )
         }

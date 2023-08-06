@@ -48,15 +48,11 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun getSearchRepository(
-        adminDao: AdminDao,
         studentDao: StudentDao,
-        subjectDao: SubjectDao,
         schoolYearDao: SchoolYearDao
     ): SearchRepository {
         return SearchRepository(
-            adminDao,
             studentDao,
-            subjectDao,
             schoolYearDao
         )
     }

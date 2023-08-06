@@ -3,7 +3,6 @@ package com.example.e_index.ui.search.admin_search.categories
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.e_index.ui.add.AddRepository
-import com.example.e_index.ui.search.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +14,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AdminCategoriesSearchViewModel @Inject constructor(
-    private val searchRepository: SearchRepository,
     private val addRepository: AddRepository
 ): ViewModel() {
 

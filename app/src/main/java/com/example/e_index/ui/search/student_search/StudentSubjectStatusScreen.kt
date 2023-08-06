@@ -67,7 +67,7 @@ private fun StudentSubjectStatusContent(
                         fontSize = 18.sp,
                     )
                     Text(
-                        text = "Status: ${if (data.passed) "Polozeno" else "Nije polozeno"}",
+                        text = "Status: ${if (data.passed) "Položeno" else "Nije položeno"}",
                         fontSize = 16.sp
                     )
                     Text(

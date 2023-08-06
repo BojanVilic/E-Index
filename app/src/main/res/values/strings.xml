@@ -45,4 +45,8 @@
     <string name="show_passed_only_subjects">Prikaži samo položene predmete:</string>
     <string name="show_failed_only_subjects">Prikaži samo nepoložene predmete:</string>
     <string name="label_no_search_result">Nema rezultata za ovu pretragu.</string>
+    <string name="label_enter_school_year_in_format">Unesite školsku godinu (xxxx/xxxx)</string>
+    <string name="error_school_year_one_apart">Godine bi trebalo da budu u razmaku od godinu dana.</string>
+    <string name="error_school_year_wrong_format">Pogrešan format. Koristite xxxx/xxxx format.</string>
+    <string name="label_user_type">Tip korisnika</string>
 </resources>
