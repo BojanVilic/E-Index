@@ -61,3 +61,30 @@ fun Int.calculateMark(): Int {
         else -> 5
     }
 }
+
+fun AddStudentViewState.resetViewState(): AddStudentViewState {
+    return copy(
+        name = "",
+        surname = "",
+        indexNumber = "",
+        jmbg = "",
+        username = "",
+        password = "",
+        subjects = emptyList(),
+        categories = emptyList(),
+        selectedSubject = null,
+        selectedSchoolYear = null,
+        addedStudentSubjects = emptyList(),
+        categoryPerformanceMap = emptyMap()
+    )
+}
+
+fun AddStudentViewState.allFieldsPopulated(): Boolean {
+    return name.isNotBlank()
+            && surname.isNotBlank()
+            && indexNumber.isNotBlank()
+            && jmbg.isNotBlank()
+            && username.isNotBlank()
+            && password.isNotBlank()
+
+}

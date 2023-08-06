@@ -2,6 +2,7 @@
 
 package com.example.e_index.ui.add.student
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -49,7 +51,8 @@ fun AddStudentContent(
     onUserIntent: (AddStudentIntent) -> Unit,
     onAddSubjectDetailsClicked: () -> Unit
 ) {
-    
+
+    val context = LocalContext.current
     val scrollState = rememberScrollState()
 
     Column(
@@ -200,7 +203,12 @@ fun AddStudentContent(
                 .align(Alignment.CenterHorizontally)
                 .padding(vertical = 32.dp),
             onClick = {
-                onUserIntent(AddStudentIntent.InsertStudent)
+                if (addStudentState.allFieldsPopulated()) {
+                    onUserIntent(AddStudentIntent.InsertStudent)
+                    Toast.makeText(context, R.string.add_student_success, Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, R.string.error_all_fields_must_be_populated, Toast.LENGTH_LONG).show()
+                }
             }
         ) {
             Text(

@@ -114,6 +114,10 @@ class AddStudentViewModel @Inject constructor(
                 studentSubjectList = _addStudentState.value.asStudentSubjectList(),
                 studentCategoryList = _addStudentState.value.asStudentCategoryEntity()
             )
+
+            _addStudentState.update {
+                it.resetViewState()
+            }
         }
     }
 

@@ -10,6 +10,7 @@
     <string name="add_school_year_success">Školska godina uspešno dodata!</string>
     <string name="add_subject_success">Predmet uspešno dodat!</string>
     <string name="add_admin_success">Admin uspešno dodat!</string>
+    <string name="add_student_success">Student uspešno dodat!</string>
     <string name="label_name">Ime</string>
     <string name="label_surname">Prezime</string>
     <string name="label_student">Student</string>
@@ -52,5 +53,6 @@
     <string name="error_school_year_one_apart">Godine bi trebalo da budu u razmaku od godinu dana.</string>
     <string name="error_school_year_wrong_format">Pogrešan format. Koristite xxxx/xxxx format.</string>
     <string name="error_category_points_sum">Ukupni broj poena mora biti tačno 100!</string>
+    <string name="error_all_fields_must_be_populated">Sva polja moraju biti popunjena!</string>
     <string name="label_user_type">Tip korisnika</string>
 </resources>
