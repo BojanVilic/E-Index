@@ -7,7 +7,6 @@ import com.example.e_index.ui.search.SearchScreen
 import com.example.e_index.ui.search.admin_search.categories.AdminCategoriesSearchScreen
 import com.example.e_index.ui.search.admin_search.students.AdminStudentSearchScreen
 import com.example.e_index.ui.search.admin_search.subjects.AdminSubjectSearchScreen
-import com.example.e_index.ui.search.searchOptionNavigationMap
 import com.example.e_index.ui.search.student_search.StudentPointsBySubjectScreen
 import com.example.e_index.ui.search.student_search.StudentSubjectStatusScreen
 
@@ -20,8 +19,8 @@ const val SEARCH_SUBJECT_PASSED_STATUS = "search_subject_passed_status"
 fun NavGraphBuilder.searchScreen(navController: NavHostController) {
     composable(TopLevelDestinations.Search.route) {
         SearchScreen(
-            onMenuOptionClicked = { searchOption ->
-                navController.navigate(searchOptionNavigationMap[searchOption]!!)
+            onMenuItemClicked = { searchMenuItem ->
+                navController.navigate(searchMenuItem.destination)
             }
         )
     }

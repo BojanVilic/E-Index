@@ -9,47 +9,32 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.example.e_index.ui.add.AddScreen
+import com.example.e_index.ui.add.admin_and_school_year.AddAdminScreen
+import com.example.e_index.ui.add.admin_and_school_year.AddSchoolYearScreen
+import com.example.e_index.ui.add.delete_student.DeleteStudentsScreen
 import com.example.e_index.ui.add.edit_student.EditStudentSubjectScreen
 import com.example.e_index.ui.add.edit_student.EditStudentViewModel
 import com.example.e_index.ui.add.edit_student.EditSubjectDetailsEntryScreen
-import com.example.e_index.ui.add.admin_and_school_year.AddAdminScreen
-import com.example.e_index.ui.add.admin_and_school_year.AddSchoolYearScreen
-import com.example.e_index.ui.add.AddScreen
 import com.example.e_index.ui.add.student.AddStudentScreen
-import com.example.e_index.ui.add.subject.AddSubjectScreen
-import com.example.e_index.ui.add.delete_student.DeleteStudentsScreen
-import com.example.e_index.ui.add.subject.SubjectDetailsEntryScreen
 import com.example.e_index.ui.add.student.AddStudentViewModel
+import com.example.e_index.ui.add.subject.AddSubjectScreen
+import com.example.e_index.ui.add.subject.SubjectDetailsEntryScreen
 
-private const val ADD_SCHOOL_YEAR = "add_school_year"
-private const val ADD_STUDENT = "add_student"
-private const val ADD_ADMIN = "add_admin"
-private const val ADD_SUBJECT = "add_subject"
-private const val SUBJECT_DETAILS_ENTRY = "subject_details_entry"
-private const val DELETE_STUDENT = "delete_student"
-private const val EDIT_STUDENT = "edit_student"
-private const val EDIT_SUBJECT_DETAILS_ENTRY = "edit_subject_details_entry"
+const val ADD_SCHOOL_YEAR = "add_school_year"
+const val ADD_STUDENT = "add_student"
+const val ADD_SUBJECT = "add_subject"
+const val ADD_ADMIN = "add_admin"
+const val DELETE_STUDENT = "delete_student"
+const val EDIT_STUDENT = "edit_student"
+const val SUBJECT_DETAILS_ENTRY = "subject_details_entry"
+const val EDIT_SUBJECT_DETAILS_ENTRY = "edit_subject_details_entry"
 
 fun NavGraphBuilder.addScreen(navController: NavHostController) {
     composable(TopLevelDestinations.Add.route) {
         AddScreen(
-            onAddSchoolYearClicked = {
-                navController.navigate(ADD_SCHOOL_YEAR)
-            },
-            onAddStudentClicked = {
-                navController.navigate(ADD_STUDENT)
-            },
-            onAddSubjectClicked = {
-                navController.navigate(ADD_SUBJECT)
-            },
-            onAddAdminClicked = {
-                navController.navigate(ADD_ADMIN)
-            },
-            onDeleteStudentClicked = {
-                navController.navigate(DELETE_STUDENT)
-            },
-            onEditStudent = {
-                navController.navigate(EDIT_STUDENT)
+            onMenuItemClicked = { addMenuItem ->
+                navController.navigate(addMenuItem.destination)
             }
         )
     }
