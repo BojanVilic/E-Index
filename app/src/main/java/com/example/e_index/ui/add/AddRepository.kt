@@ -76,7 +76,6 @@ class AddRepository @Inject constructor(
         studentDao.deleteStudent(student)
     }
 
-
     fun getAllStudents(): Flow<List<Student>> {
         return studentDao.getAllStudents()
     }

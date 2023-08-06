@@ -3,6 +3,7 @@ package com.example.e_index.ui.add.subject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.e_index.ui.add.AddRepository
+import com.example.e_index.ui.add.uimodels.CategoryUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,15 +24,26 @@ class AddSubjectViewModel @Inject constructor(
 
     suspend fun processIntent(intent: AddSubjectIntent) {
         when (intent) {
-            is AddSubjectIntent.AddCategory -> _addSubjectState.update { it.copy(categories = it.categories.plus(intent.category)) }
+            is AddSubjectIntent.AddCategory -> _addSubjectState.update { it.copy(
+                categories = it.categories.plus(intent.category),
+                currentCategory = CategoryUi()
+            ) }
             is AddSubjectIntent.EnterSubjectName -> _addSubjectState.update { it.copy(subjectName = intent.name) }
-            is AddSubjectIntent.SelectSchoolYear -> _addSubjectState.update { it.copy(selectedSchoolYearId = intent.schoolYear?.id) }
+            is AddSubjectIntent.SelectSchoolYear -> _addSubjectState.update { it.copy(selectedSchoolYear = intent.schoolYear) }
             is AddSubjectIntent.InsertSubject -> {
                 addRepository.insertSubjectWithCategories(
                     _addSubjectState.value.subjectName,
-                    addSubjectState.value.categories,
-                    _addSubjectState.value.selectedSchoolYearId
+                    _addSubjectState.value.categories,
+                    _addSubjectState.value.selectedSchoolYear!!.id
                 )
+                _addSubjectState.update {
+                    it.copy(
+                        selectedSchoolYear = null,
+                        subjectName = "",
+                        categories = emptyList(),
+                        currentCategory = CategoryUi()
+                    )
+                }
             }
         }
     }

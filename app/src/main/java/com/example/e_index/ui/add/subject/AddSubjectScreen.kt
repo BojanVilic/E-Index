@@ -2,6 +2,7 @@
 
 package com.example.e_index.ui.add.subject
 
+import android.widget.Toast
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -22,13 +23,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -38,7 +37,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.e_index.R
-import com.example.e_index.ui.add.uimodels.CategoryUi
 import com.example.e_index.ui.add.uimodels.asEntity
 import com.example.e_index.ui.theme.EIndexTheme
 import com.example.e_index.util.DropdownSelectionMenu
@@ -68,8 +66,7 @@ fun AddSubjectContent(
     onUserIntent: (AddSubjectIntent) -> Unit
 ) {
 
-    var selectedSchoolYear by remember { mutableStateOf(addSubjectState.schoolYears.firstOrNull()?.name?: "") }
-    val currentCategory by remember { mutableStateOf(CategoryUi()) }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -84,10 +81,9 @@ fun AddSubjectContent(
         DropdownSelectionMenu(
             modifier = Modifier.fillMaxWidth(),
             options = addSubjectState.schoolYears.map { it.name },
-            selectedValue = selectedSchoolYear,
+            selectedValue = addSubjectState.selectedSchoolYear?.name?: "",
             onValueChange = { newSchoolYear ->
-                selectedSchoolYear = newSchoolYear
-                onUserIntent(AddSubjectIntent.SelectSchoolYear(addSubjectState.schoolYears.find { it.name == newSchoolYear }))
+                onUserIntent(AddSubjectIntent.SelectSchoolYear(addSubjectState.schoolYears.find { it.name == newSchoolYear }!!))
             },
             label = stringResource(id = R.string.label_school_year)
         )
@@ -126,9 +122,9 @@ fun AddSubjectContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            value = currentCategory.name.value,
+            value = addSubjectState.currentCategory.name.value,
             onValueChange = {
-                currentCategory.name.value = it
+                addSubjectState.currentCategory.name.value = it
             },
             label = { Text(stringResource(id = R.string.label_category_name)) }
         )
@@ -142,9 +138,9 @@ fun AddSubjectContent(
             OutlinedTextField(
                 modifier = Modifier
                     .weight(1f),
-                value = currentCategory.minPoints.value,
+                value = addSubjectState.currentCategory.minPoints.value,
                 onValueChange = {
-                    currentCategory.minPoints.value = it
+                    addSubjectState.currentCategory.minPoints.value = it
                 },
                 label = { Text(stringResource(id = R.string.label_min)) },
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -159,9 +155,9 @@ fun AddSubjectContent(
             OutlinedTextField(
                 modifier = Modifier
                     .weight(1f),
-                value = currentCategory.maxPoints.value,
+                value = addSubjectState.currentCategory.maxPoints.value,
                 onValueChange = {
-                    currentCategory.maxPoints.value = it
+                    addSubjectState.currentCategory.maxPoints.value = it
                 },
                 label = { Text(stringResource(id = R.string.label_max)) },
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -177,10 +173,10 @@ fun AddSubjectContent(
                 .align(Alignment.CenterHorizontally)
                 .padding(vertical = 16.dp),
             onClick = {
-                if (currentCategory.name.value.isNotBlank()
-                    && currentCategory.maxPoints.value != "0"
-                    && (addSubjectState.categories.sumOf { it.maxPoints } + currentCategory.maxPoints.value.toInt()) <= 100) {
-                    onUserIntent(AddSubjectIntent.AddCategory(currentCategory.asEntity()))
+                if (addSubjectState.currentCategory.name.value.isNotBlank()
+                    && addSubjectState.currentCategory.maxPoints.value != "0"
+                    && (addSubjectState.categories.sumOf { it.maxPoints } + addSubjectState.currentCategory.maxPoints.value.toInt()) <= 100) {
+                    onUserIntent(AddSubjectIntent.AddCategory(addSubjectState.currentCategory.asEntity()))
                 }
             }
         ) {
@@ -197,7 +193,12 @@ fun AddSubjectContent(
                 .align(Alignment.CenterHorizontally)
                 .padding(vertical = 16.dp),
             onClick = {
-                onUserIntent(AddSubjectIntent.InsertSubject)
+                if (addSubjectState.categories.sumOf { it.maxPoints } == 100) {
+                    onUserIntent(AddSubjectIntent.InsertSubject)
+                    Toast.makeText(context, R.string.add_subject_success, Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, R.string.error_category_points_sum, Toast.LENGTH_LONG).show()
+                }
             }
         ) {
             Text(
